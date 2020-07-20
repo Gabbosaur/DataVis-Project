@@ -34,7 +34,6 @@ function calculateAgeArray(subject, eta) {
     }
 }
 
-
 function calculateNumberOfProducts(nutData) {
     let univokeProducts = [];
     let product = { id: "", pricekgl: "", name: "", score: "" };
