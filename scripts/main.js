@@ -5,6 +5,7 @@ let idpersona = [];
 let lastId = null;
 let caddy1 = [];
 let caddy2 = [];
+let fEta = ["20-29", "30-39", "40-49", "50-59", "60+"];
 
 let asseX = null;
 let lchart1 = null;
@@ -850,25 +851,25 @@ function chooseLChart2(label) {
 // D3 code
 function createLeftBarChart() {
     var data = [{
-            "name": "60+",
-            "value": fasceEta[4],
-        },
-        {
-            "name": "50-59",
-            "value": fasceEta[3],
-        },
-        {
-            "name": "40-49",
-            "value": fasceEta[2],
-        },
-        {
-            "name": "30-39",
-            "value": fasceEta[1],
-        },
-        {
-            "name": "20-29",
-            "value": fasceEta[0],
-        }
+        "name": "60+",
+        "value": fasceEta[4],
+    },
+    {
+        "name": "50-59",
+        "value": fasceEta[3],
+    },
+    {
+        "name": "40-49",
+        "value": fasceEta[2],
+    },
+    {
+        "name": "30-39",
+        "value": fasceEta[1],
+    },
+    {
+        "name": "20-29",
+        "value": fasceEta[0],
+    }
     ];
 
     // console.log(data);
@@ -893,13 +894,13 @@ function createLeftBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function(d) {
+        .domain([0, d3.max(data, function (d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function(d) {
+        .domain(data.map(function (d) {
             return d.name;
         }));
 
@@ -925,7 +926,7 @@ function createLeftBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name);
         })
         .transition(t)
@@ -933,22 +934,22 @@ function createLeftBarChart() {
         .attr("fill", "#69b3a2")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function(d) {
+        .attr("width", function (d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#69b3a2")
-        .attr("x", function(d) {
+        .attr("x", function (d) {
             return x(d.value) + 3;
         })
-        .text(function(d) {
+        .text(function (d) {
             return d.value;
         });
 
@@ -977,7 +978,7 @@ function createMidScatterplot2() {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.score - 3; }), d3.max(nutProducts, function(d) { return d.score + 3; })])
+        .domain([d3.min(nutProducts, function (d) { return d.score - 3; }), d3.max(nutProducts, function (d) { return d.score + 3; })])
         .range([0, width]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -985,7 +986,7 @@ function createMidScatterplot2() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.pricekgl; }), d3.max(nutProducts, function(d) { return d.pricekgl + 1.33; })])
+        .domain([d3.min(nutProducts, function (d) { return d.pricekgl; }), d3.max(nutProducts, function (d) { return d.pricekgl + 1.33; })])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -998,12 +999,12 @@ function createMidScatterplot2() {
         .data(nutProducts)
         .enter()
         .append("circle")
-        .attr("cx", function(d) { return x(d.score); })
-        .attr("cy", function(d) { return y(d.pricekgl); })
+        .attr("cx", function (d) { return x(d.score); })
+        .attr("cy", function (d) { return y(d.pricekgl); })
         .attr("r", 3)
-        .attr("id", function(d) { return d.id; })
+        .attr("id", function (d) { return d.id; })
         .style("fill", "#69b3a2")
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             if (lastId != null) {
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').style("fill", "#69b3a2");
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
@@ -1050,25 +1051,26 @@ function createLabelChart1(asseX, label) {
 
     // D3 code
 
-    var n = 5, // number of samples
-        m = 5; // number of series
+    var n = 5, // number of groups
+        m = 5; // number of bars per group
 
+    var svg = d3.select("#bars");
+    svg.selectAll("rect").remove();
 
-    console.log(data);
+    //console.log(data);
 
     var margin = { top: 20, right: 30, bottom: 30, left: 40 },
-        width = 960 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var y0 = Math.max(Math.abs(d3.min(data, function(d) { return d3.min(d); })), Math.abs(d3.max(data, function(d) { return d3.max(d); })));
+    var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
 
 
 
-    console.log(y0);
+    //console.log(y0); // 55
     var y = d3.scaleLinear()
         .domain([-y0, y0])
-        .range([0, height]);
-
+        .range([height, 0]);
 
     //un gruppo
     var x0 = d3.scaleBand()
@@ -1077,32 +1079,47 @@ function createLabelChart1(asseX, label) {
     //m gruppi        
     var x1 = d3.scaleBand()
         .domain(d3.range(m))
-        .range([0, x0.bandwidth() - 10]);
+        .range([0, x0.bandwidth() - 30]);
 
     var z = d3.scaleOrdinal()
-        .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]);
+        .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
 
-    var svg = d3.select("body").append("svg")
+    // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
+
+    var xAxis = d3.axisBottom(x0).tickSize(0);
+    var yAxis = d3.axisLeft(y);
+
+    var svg = d3.select("#labelChart1").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    svg.append("g").selectAll("g")
+    svg.append("g").attr("id", "bars").selectAll("g")
         .data(data)
         .enter().append("g")
-        .style("fill", function(d, i) { return z(i); })
-        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+        .style("fill", function (d, i) { return z(i); })
+        .attr("transform", function (d, i) { return "translate(" + x1(i) + ",0)"; })
         .selectAll("rect")
-        .data(function(d) { return d; })
+        .data(function (d) { return d; })
         .enter().append("rect")
         .attr("width", x1.bandwidth())
-        .attr("height", function(d) {
-            console.log(y(d));
-            return Math.abs(y(d) - y(0));
+        .attr("height", function (d) {
+            //console.log(y(d));
+            console.log(y(0));
+            return Math.abs(y(0) - y(d));
         })
-        .attr("x", function(d, i) { return x0(i); })
-        .attr("y", function(d) { return height - y(Math.max(0, d)); });
+        .attr("x", function (d, i) { return x0(i); })
+        .attr("y", function (d) { return y(Math.max(0, d)); });
+
+    // axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
 
 }
 
@@ -1112,13 +1129,13 @@ function createLabelChart2(asseX, label) {
 
 
 // Load CSV file
-d3.csv("data/dc.csv", function(error, csv) {
+d3.csv("data/dc.csv", function (error, csv) {
     if (error) {
         console.log(error); //Log the error.
         throw error;
     }
     console.log('helloworld');
-    csv.forEach(function(d) {
+    csv.forEach(function (d) {
 
         // Convert numeric values to 'numbers'
         d.SUBJECT = +d.subject;
