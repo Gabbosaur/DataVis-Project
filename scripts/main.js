@@ -911,7 +911,7 @@ function createLeftBarChart() {
         //no tick marks
         .tickSize(0);
 
-    var gy = svg.append("g")
+    svg.append("g")
         .attr("class", "label")
         .call(yAxis)
 
@@ -1075,23 +1075,28 @@ function createLabelChart1(asseX, label) {
     //un gruppo
     var x0 = d3.scaleBand()
         .domain(d3.range(n))
-        .range([0, width], .2);
+        .range([0, width]);
     //m gruppi        
     var x1 = d3.scaleBand()
         .domain(d3.range(m))
-        .range([0, x0.bandwidth() - 30]);
+        .range([0, x0.bandwidth()])
+        .paddingOuter(.9);
 
     var z = d3.scaleOrdinal()
         .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
 
     // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
 
-    var xAxis = d3.axisBottom(x0).tickSize(0);
+    var xAxis = d3.axisBottom(x0).tickSize(7).tickSizeOuter(0);
     var yAxis = d3.axisLeft(y);
 
-    var svg = d3.select("#labelChart1").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+
+    svg = d3.select("#labelChart1")
+        .append("svg")
+        .attr("viewBox", `0 0 600 500`)
+    // var svg = d3.select("#labelChart1").append("svg")
+    //     .attr("width", width + margin.left + margin.right)
+    //     .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -1106,7 +1111,7 @@ function createLabelChart1(asseX, label) {
         .attr("width", x1.bandwidth())
         .attr("height", function (d) {
             //console.log(y(d));
-            console.log(y(0));
+            console.log(data);
             return Math.abs(y(0) - y(d));
         })
         .attr("x", function (d, i) { return x0(i); })
@@ -1114,9 +1119,11 @@ function createLabelChart1(asseX, label) {
 
     // axis
     svg.append("g")
+        .data(fEta)
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+        .call(g => g.select(".domain").remove());
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
