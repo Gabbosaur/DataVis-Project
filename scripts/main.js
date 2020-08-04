@@ -130,7 +130,7 @@ function caddyFilterBought(nutData) {
     let senzaetk = 0;
     let conetk = 0;
     for (let i = 0; i < nutData.length; i++) {
-        if (nutData[i].BOUGHTPRODUCT == 1) {
+        if (nutData[i].BOUGHTPRODUCT >= 1) {
             if (nutData[i].CADDY == 1) {
                 caddy1[senzaetk] = nutData[i];
                 senzaetk++;
@@ -138,7 +138,7 @@ function caddyFilterBought(nutData) {
                 caddy2[conetk] = nutData[i];
                 conetk++;
             } else { // se mai esistesse un CADDY diverso da 1 e 2
-                console.log(nutData[i]);
+                //console.log(nutData[i]);
             }
         }
     }
