@@ -1080,7 +1080,7 @@ function createLabelChart1(asseX, label) {
     var x1 = d3.scaleBand()
         .domain(d3.range(m))
         .range([0, x0.bandwidth()])
-        .paddingOuter(.9);
+        .paddingOuter(1);
 
     var z = d3.scaleOrdinal()
         .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
@@ -1090,13 +1090,24 @@ function createLabelChart1(asseX, label) {
     var xAxis = d3.axisBottom(x0).tickSize(7).tickSizeOuter(0);
     var yAxis = d3.axisLeft(y);
 
+    var xScaleLabels = d3.scalePoint()
+        .domain(fEta)
+        .rangeRound([width/10, width-(width/10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+
+    var axisTop2 = d3
+        .axisBottom()
+        .scale(xScaleLabels)
+        .ticks(data.length)
+        .tickSize(7)
+        .tickSizeOuter(0);
+
 
     svg = d3.select("#labelChart1")
         .append("svg")
-        .attr("viewBox", `0 0 600 500`)
-    // var svg = d3.select("#labelChart1").append("svg")
-    //     .attr("width", width + margin.left + margin.right)
-    //     .attr("height", height + margin.top + margin.bottom)
+        .attr("viewBox", `0 0 600 600`)
+        // var svg = d3.select("#labelChart1").append("svg")
+        //     .attr("width", width + margin.left + margin.right)
+        //     .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -1118,11 +1129,15 @@ function createLabelChart1(asseX, label) {
         .attr("y", function (d) { return y(Math.max(0, d)); });
 
     // axis
+    // svg.append("g")
+    //     .attr("class", "x axis")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(xAxis)
+    //     .call(g => g.select(".domain").remove());
+
     svg.append("g")
-        .data(fEta)
-        .attr("class", "x axis")
+        .call(axisTop2)
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
         .call(g => g.select(".domain").remove());
     svg.append("g")
         .attr("class", "y axis")
