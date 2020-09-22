@@ -31,16 +31,14 @@
                 <a href="#about" class="w3-bar-item w3-button">ABOUT US</a>
             </div>
             <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
-                onclick="w3_open()">
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
     </div>
     <!-- Sidebar on small screens when clicking the menu icon -->
     <div>
-        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
-            style="display:none" id="mySidebar">
+        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close
                 ×</a>
             <a href="#home" onclick="w3_close()" class="w3-bar-item w3-button">PROJECT</a>
@@ -56,7 +54,8 @@
             <div class="w3-col l2" style="padding: 0">
                 <i class="fas fa-user-friends"></i> Partecipanti<br>
                 <hr>
-                <div id="hBarchart"></div> <!-- BONUS DA FARE: Responsività delle barre che si adattano alla pagina -->
+                <div id="hBarchart"></div>
+                <!-- BONUS DA FARE: Responsività delle barre che si adattano alla pagina -->
             </div>
             <div class="w3-col l7">
                 <i class="fa fa-chart-bar"></i> Main Chart<br>
@@ -135,7 +134,9 @@
             <div class="w3-row-padding">
                 <div class="w3-col l6">
                     lchart1
-                    <div id="labelChart1"></div>
+                    <div id="labelChart1">
+                        <svg id="graph1lc" viewBox="0 0 600 600"></svg>
+                    </div>
                 </div>
                 <div class="w3-col l6">
                     lchart2
@@ -159,7 +160,8 @@
         <div class="w3-container" style="padding: 20px 16px" id="about">
 
             <div class="w3-row-padding">
-                <div class="w3-col l3 m6"><br></div> <!-- empty column -->
+                <div class="w3-col l3 m6"><br></div>
+                <!-- empty column -->
                 <div class="w3-col l3 m6 w3-margin-bottom">
                     <div class="w3-card">
                         <img src="/img/gab.jpg" alt="Gabriele" style="width:100%">
@@ -169,8 +171,7 @@
                             <hr>
                             <p><i class="fa fa-id-card-alt w3-padding"></i>3982992</p>
                             <p><i class="fa fa-envelope w3-padding"></i>gabriele.guo@gmail.com</p>
-                            <p><i class=" fab fa-linkedin w3-padding"></i><a
-                                    href="https://www.linkedin.com/in/gabrieleguo/" target="_blank">Gabriele Guo</a>
+                            <p><i class=" fab fa-linkedin w3-padding"></i><a href="https://www.linkedin.com/in/gabrieleguo/" target="_blank">Gabriele Guo</a>
                             </p>
                         </div>
                     </div>

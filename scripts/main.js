@@ -1056,7 +1056,191 @@ function createLabelChart1(asseX, label) {
 
 
     var svg = d3.select("#graph1lc");
-    svg.remove();
+    //svg.remove();
+
+    if (svg == null) {
+
+    }
+    /*
+    svg = d3.select("#bars");
+    svg.selectAll("rect").remove();
+    */
+
+
+
+
+    //console.log(data);
+
+    var margin = { top: 20, right: 30, bottom: 30, left: 40 },
+        width = 600 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var y0 = Math.max(Math.abs(d3.min(data, function(d) { return d3.min(d); })), Math.abs(d3.max(data, function(d) { return d3.max(d); })));
+
+
+
+    //console.log(y0); // 55
+    var y = d3.scaleLinear()
+        .domain([-y0, y0])
+        .range([height, 0]);
+
+    //un gruppo
+    var x0 = d3.scaleBand()
+        .domain(d3.range(n))
+        .range([0, width]);
+    //m gruppi        
+    var x1 = d3.scaleBand()
+        .domain(d3.range(m))
+        .range([0, x0.bandwidth()])
+        .paddingOuter(1);
+
+    var z = d3.scaleOrdinal()
+        .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
+
+    // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
+
+    var xAxis = d3.axisBottom(x0).tickSize(7).tickSizeOuter(0);
+    var yAxis = d3.axisLeft(y);
+
+    var xScaleLabels = d3.scalePoint()
+        .domain(fEta)
+        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+
+    var axisTop2 = d3
+        .axisBottom()
+        .scale(xScaleLabels)
+        .ticks(data.length)
+        .tickSize(7)
+        .tickSizeOuter(0);
+
+
+    var isFirstTime = d3.select("#bars1");
+
+    if (isFirstTime._groups[0][0] == null) {
+        //create
+
+        svg = d3.select("#graph1lc")
+            // var svg = d3.select("#labelChart1").append("svg")
+            //     .attr("width", width + margin.left + margin.right)
+            //     .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.append("g").attr("id", "bars1").selectAll("g")
+            .data(data)
+            .enter().append("g")
+            .style("fill", function(d, i) { return z(i); })
+            .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+            .selectAll("rect")
+            .data(function(d) { return d; })
+            .enter().append("rect")
+            .attr("width", x1.bandwidth())
+            .attr("height", function(d) {
+                //console.log(y(d));
+                console.log(data);
+                return Math.abs(y(0) - y(d));
+            })
+            .attr("x", function(d, i) { return x0(i); })
+            .attr("y", function(d) { return y(Math.max(0, d)); });
+
+        // axis
+        // svg.append("g")
+        //     .attr("class", "x axis")
+        //     .attr("transform", "translate(0," + height + ")")
+        //     .call(xAxis)
+        //     .call(g => g.select(".domain").remove());
+
+        svg.append("g")
+            .call(axisTop2)
+            .attr("transform", "translate(0," + height + ")")
+            .call(g => g.select(".domain").remove());
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+    } else { //update
+
+
+        /*
+        //Update all rects
+        svg.selectAll("rect")
+            .data(dataset)
+            .transition()
+            .delay(function(d, i) {
+                return i * 100;
+            })
+            .duration(1000)
+            .ease(d3.easeBounceOut)
+            .attr("y", function(d) {
+                return h - yScale(d);
+            })
+            .attr("height", function(d) {
+                return yScale(d);
+            })
+            .attr("fill", function(d) {
+                return "rgb(0,0," + Math.round(d * 10) + ")";
+            });*/
+        svg = d3.select("#graph1lc")
+        svg.select("#bars1")
+
+        svg.selectAll("g")
+            .data(data)
+            .select("g")
+            .style("fill", function(d, i) { return z(i); })
+            .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+            .selectAll("rect")
+            .data(function(d) { return d; })
+            .select("rect")
+            .attr("width", x1.bandwidth())
+            .attr("height", function(d) {
+                //console.log(y(d));
+                console.log(data);
+                return Math.abs(y(0) - y(d));
+            })
+            .attr("x", function(d, i) { return x0(i); })
+            .attr("y", function(d) { return y(Math.max(0, d)); });
+
+
+        svg.append("g")
+            .call(axisTop2)
+            .attr("transform", "translate(0," + height + ")")
+            .call(g => g.select(".domain").remove());
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+
+    }
+
+
+
+
+}
+
+function updateLabelChart1(asseX, label) {
+    let data;
+    if (asseX.localeCompare('anni') == 0) {
+        if (label.localeCompare('5C') == 0) {
+            data = filterAge5C(nutData);
+        } else if (label.localeCompare('TL') == 0) {
+            data = filterAgeTL(nutData);
+        } else if (label.localeCompare('RIGDA') == 0) {
+            data = filterAgeRIGDA(nutData);
+        } else if (label.localeCompare('neutre') == 0) {
+            data = filterAgeNeutre(nutData);
+        }
+    }
+    // fare ELSE IF asseX == 'stipendio'
+
+    // D3 code
+
+    var n = 5, // number of groups
+        m = 5; // number of bars per group
+
+
+    var svg = d3.select("#graph1lc");
+    //svg.remove();
+    if (svg == null) {
+
+    }
     /*
     svg = d3.select("#bars");
     svg.selectAll("rect").remove();
@@ -1151,6 +1335,7 @@ function createLabelChart1(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
 
 }
 
