@@ -851,25 +851,25 @@ function chooseLChart2(label) {
 // D3 code
 function createLeftBarChart() {
     var data = [{
-        "name": "60+",
-        "value": fasceEta[4],
-    },
-    {
-        "name": "50-59",
-        "value": fasceEta[3],
-    },
-    {
-        "name": "40-49",
-        "value": fasceEta[2],
-    },
-    {
-        "name": "30-39",
-        "value": fasceEta[1],
-    },
-    {
-        "name": "20-29",
-        "value": fasceEta[0],
-    }
+            "name": "60+",
+            "value": fasceEta[4],
+        },
+        {
+            "name": "50-59",
+            "value": fasceEta[3],
+        },
+        {
+            "name": "40-49",
+            "value": fasceEta[2],
+        },
+        {
+            "name": "30-39",
+            "value": fasceEta[1],
+        },
+        {
+            "name": "20-29",
+            "value": fasceEta[0],
+        }
     ];
 
     // console.log(data);
@@ -894,13 +894,13 @@ function createLeftBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function (d) {
+        .domain([0, d3.max(data, function(d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function (d) {
+        .domain(data.map(function(d) {
             return d.name;
         }));
 
@@ -926,7 +926,7 @@ function createLeftBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name);
         })
         .transition(t)
@@ -934,22 +934,22 @@ function createLeftBarChart() {
         .attr("fill", "#69b3a2")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function (d) {
+        .attr("width", function(d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#69b3a2")
-        .attr("x", function (d) {
+        .attr("x", function(d) {
             return x(d.value) + 3;
         })
-        .text(function (d) {
+        .text(function(d) {
             return d.value;
         });
 
@@ -978,7 +978,7 @@ function createMidScatterplot2() {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function (d) { return d.score - 3; }), d3.max(nutProducts, function (d) { return d.score + 3; })])
+        .domain([d3.min(nutProducts, function(d) { return d.score - 3; }), d3.max(nutProducts, function(d) { return d.score + 3; })])
         .range([0, width]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -986,7 +986,7 @@ function createMidScatterplot2() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function (d) { return d.pricekgl; }), d3.max(nutProducts, function (d) { return d.pricekgl + 1.33; })])
+        .domain([d3.min(nutProducts, function(d) { return d.pricekgl; }), d3.max(nutProducts, function(d) { return d.pricekgl + 1.33; })])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -999,12 +999,12 @@ function createMidScatterplot2() {
         .data(nutProducts)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return x(d.score); })
-        .attr("cy", function (d) { return y(d.pricekgl); })
+        .attr("cx", function(d) { return x(d.score); })
+        .attr("cy", function(d) { return y(d.pricekgl); })
         .attr("r", 3)
-        .attr("id", function (d) { return d.id; })
+        .attr("id", function(d) { return d.id; })
         .style("fill", "#69b3a2")
-        .on("mouseover", function () {
+        .on("mouseover", function() {
             if (lastId != null) {
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').style("fill", "#69b3a2");
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
@@ -1054,8 +1054,16 @@ function createLabelChart1(asseX, label) {
     var n = 5, // number of groups
         m = 5; // number of bars per group
 
-    var svg = d3.select("#bars");
+
+    var svg = d3.select("#graph1lc");
+    svg.remove();
+    /*
+    svg = d3.select("#bars");
     svg.selectAll("rect").remove();
+    */
+
+
+
 
     //console.log(data);
 
@@ -1063,7 +1071,7 @@ function createLabelChart1(asseX, label) {
         width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
+    var y0 = Math.max(Math.abs(d3.min(data, function(d) { return d3.min(d); })), Math.abs(d3.max(data, function(d) { return d3.max(d); })));
 
 
 
@@ -1092,7 +1100,7 @@ function createLabelChart1(asseX, label) {
 
     var xScaleLabels = d3.scalePoint()
         .domain(fEta)
-        .rangeRound([width/10, width-(width/10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
 
     var axisTop2 = d3
         .axisBottom()
@@ -1105,6 +1113,7 @@ function createLabelChart1(asseX, label) {
     svg = d3.select("#labelChart1")
         .append("svg")
         .attr("viewBox", `0 0 600 600`)
+        .attr("id", "graph1lc")
         // var svg = d3.select("#labelChart1").append("svg")
         //     .attr("width", width + margin.left + margin.right)
         //     .attr("height", height + margin.top + margin.bottom)
@@ -1114,19 +1123,19 @@ function createLabelChart1(asseX, label) {
     svg.append("g").attr("id", "bars").selectAll("g")
         .data(data)
         .enter().append("g")
-        .style("fill", function (d, i) { return z(i); })
-        .attr("transform", function (d, i) { return "translate(" + x1(i) + ",0)"; })
+        .style("fill", function(d, i) { return z(i); })
+        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
         .selectAll("rect")
-        .data(function (d) { return d; })
+        .data(function(d) { return d; })
         .enter().append("rect")
         .attr("width", x1.bandwidth())
-        .attr("height", function (d) {
+        .attr("height", function(d) {
             //console.log(y(d));
             console.log(data);
             return Math.abs(y(0) - y(d));
         })
-        .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return y(Math.max(0, d)); });
+        .attr("x", function(d, i) { return x0(i); })
+        .attr("y", function(d) { return y(Math.max(0, d)); });
 
     // axis
     // svg.append("g")
@@ -1138,7 +1147,7 @@ function createLabelChart1(asseX, label) {
     svg.append("g")
         .call(axisTop2)
         .attr("transform", "translate(0," + height + ")")
-        .call(g => g.select(".domain").remove());
+        .call(g => g.select(".domain").remove()); //exit delle colonne del grafico
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
@@ -1151,13 +1160,13 @@ function createLabelChart2(asseX, label) {
 
 
 // Load CSV file
-d3.csv("data/dc.csv", function (error, csv) {
+d3.csv("data/dc.csv", function(error, csv) {
     if (error) {
         console.log(error); //Log the error.
         throw error;
     }
     console.log('helloworld');
-    csv.forEach(function (d) {
+    csv.forEach(function(d) {
 
         // Convert numeric values to 'numbers'
         d.SUBJECT = +d.subject;
