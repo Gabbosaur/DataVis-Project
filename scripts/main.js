@@ -7,9 +7,9 @@ let caddy1 = [];
 let caddy2 = [];
 let fEta = ["20-29", "30-39", "40-49", "50-59", "60+"];
 
-let asseX = null;
-let lchart1 = null;
-let lchart2 = null;
+let asseX = "anni";
+let lchart1 = "5C";
+let lchart2 = "TL";
 
 
 function calculateAgeArray(subject, eta) {
@@ -813,6 +813,26 @@ function filterAgeNeutre(nutData) {
     return datasetNeutre;
 }
 
+
+function vediStipendio(nutData) {
+    let fStipendio = [];
+    let exist = false;
+    for (let i = 0; i < nutData.length; i++) {
+        for (let j = 0; j < fStipendio.length; j++) {
+            if (nutData[i].INCOME.localeCompare(fStipendio[j]) == 0) { // se == 0 esiste già e quindi non lo metto dentro
+                exist = true;
+                break;
+            }
+        }
+        if (exist == false) {
+            fStipendio.push(nutData[i].INCOME);
+        }
+        exist = false;
+    }
+    console.log(fStipendio);
+}
+
+
 //da fare
 function filterSalary5C(nutData) {
 
@@ -823,6 +843,10 @@ function filterSalaryTL(nutData) {
 }
 
 function filterSalaryRIGDA(nutData) {
+
+}
+
+function filterSalaryNeutre(nutData) {
 
 }
 
@@ -838,6 +862,8 @@ function chooseLChart1(label) {
     lchart1 = label;
     if (asseX != null) { // se sono all'iterazione successiva al primo
         createLabelChart1(asseX, lchart1);
+    } else {
+
     }
 }
 
@@ -851,25 +877,25 @@ function chooseLChart2(label) {
 // D3 code
 function createLeftBarChart() {
     var data = [{
-            "name": "60+",
-            "value": fasceEta[4],
-        },
-        {
-            "name": "50-59",
-            "value": fasceEta[3],
-        },
-        {
-            "name": "40-49",
-            "value": fasceEta[2],
-        },
-        {
-            "name": "30-39",
-            "value": fasceEta[1],
-        },
-        {
-            "name": "20-29",
-            "value": fasceEta[0],
-        }
+        "name": "60+",
+        "value": fasceEta[4],
+    },
+    {
+        "name": "50-59",
+        "value": fasceEta[3],
+    },
+    {
+        "name": "40-49",
+        "value": fasceEta[2],
+    },
+    {
+        "name": "30-39",
+        "value": fasceEta[1],
+    },
+    {
+        "name": "20-29",
+        "value": fasceEta[0],
+    }
     ];
 
     // console.log(data);
@@ -894,13 +920,13 @@ function createLeftBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function(d) {
+        .domain([0, d3.max(data, function (d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function(d) {
+        .domain(data.map(function (d) {
             return d.name;
         }));
 
@@ -926,7 +952,7 @@ function createLeftBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name);
         })
         .transition(t)
@@ -934,22 +960,22 @@ function createLeftBarChart() {
         .attr("fill", "#69b3a2")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function(d) {
+        .attr("width", function (d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#69b3a2")
-        .attr("x", function(d) {
+        .attr("x", function (d) {
             return x(d.value) + 3;
         })
-        .text(function(d) {
+        .text(function (d) {
             return d.value;
         });
 
@@ -978,7 +1004,7 @@ function createMidScatterplot2() {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.score - 3; }), d3.max(nutProducts, function(d) { return d.score + 3; })])
+        .domain([d3.min(nutProducts, function (d) { return d.score - 3; }), d3.max(nutProducts, function (d) { return d.score + 3; })])
         .range([0, width]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -986,7 +1012,7 @@ function createMidScatterplot2() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.pricekgl; }), d3.max(nutProducts, function(d) { return d.pricekgl + 1.33; })])
+        .domain([d3.min(nutProducts, function (d) { return d.pricekgl; }), d3.max(nutProducts, function (d) { return d.pricekgl + 1.33; })])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -999,12 +1025,12 @@ function createMidScatterplot2() {
         .data(nutProducts)
         .enter()
         .append("circle")
-        .attr("cx", function(d) { return x(d.score); })
-        .attr("cy", function(d) { return y(d.pricekgl); })
+        .attr("cx", function (d) { return x(d.score); })
+        .attr("cy", function (d) { return y(d.pricekgl); })
         .attr("r", 3)
-        .attr("id", function(d) { return d.id; })
+        .attr("id", function (d) { return d.id; })
         .style("fill", "#69b3a2")
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             if (lastId != null) {
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').style("fill", "#69b3a2");
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
@@ -1046,8 +1072,15 @@ function createLabelChart1(asseX, label) {
         } else if (label.localeCompare('neutre') == 0) {
             data = filterAgeNeutre(nutData);
         }
+    } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
+
     }
-    // fare ELSE IF asseX == 'stipendio'
+
+
+
+
+
+
 
     // D3 code
 
@@ -1071,7 +1104,7 @@ function createLabelChart1(asseX, label) {
         width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var y0 = Math.max(Math.abs(d3.min(data, function(d) { return d3.min(d); })), Math.abs(d3.max(data, function(d) { return d3.max(d); })));
+    var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
 
 
 
@@ -1123,19 +1156,19 @@ function createLabelChart1(asseX, label) {
     svg.append("g").attr("id", "bars").selectAll("g")
         .data(data)
         .enter().append("g")
-        .style("fill", function(d, i) { return z(i); })
-        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+        .style("fill", function (d, i) { return z(i); })
+        .attr("transform", function (d, i) { return "translate(" + x1(i) + ",0)"; })
         .selectAll("rect")
-        .data(function(d) { return d; })
+        .data(function (d) { return d; })
         .enter().append("rect")
         .attr("width", x1.bandwidth())
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             //console.log(y(d));
             console.log(data);
             return Math.abs(y(0) - y(d));
         })
-        .attr("x", function(d, i) { return x0(i); })
-        .attr("y", function(d) { return y(Math.max(0, d)); });
+        .attr("x", function (d, i) { return x0(i); })
+        .attr("y", function (d) { return y(Math.max(0, d)); });
 
     // axis
     // svg.append("g")
@@ -1160,13 +1193,13 @@ function createLabelChart2(asseX, label) {
 
 
 // Load CSV file
-d3.csv("data/dc.csv", function(error, csv) {
+d3.csv("data/dc.csv", function (error, csv) {
     if (error) {
         console.log(error); //Log the error.
         throw error;
     }
     console.log('helloworld');
-    csv.forEach(function(d) {
+    csv.forEach(function (d) {
 
         // Convert numeric values to 'numbers'
         d.SUBJECT = +d.subject;
