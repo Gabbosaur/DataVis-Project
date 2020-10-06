@@ -37,3 +37,19 @@ html {
   font-size: 18px;
   font-weight: bold;
 }
+
+.textLarge {
+  margin: 10px 0px 0px 0px;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  font-size: large;
+}
+
+#hBarchart {
+  text-align: center;
+}
+
+#salaryhBarChart {
+  text-align: center;
+}
