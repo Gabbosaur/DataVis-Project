@@ -186,17 +186,17 @@ function conversioneInDataset(A, B, C, D, E) {
     return dataset;
 }
 
-
-function filterAge(nutData, etichetta) {
+function filterAge5C(nutData) {
     caddyFilterBought(nutData);
 
+    // NutriScore
     let A = [0, 0, 0, 0, 0];
     let B = [0, 0, 0, 0, 0];
     let C = [0, 0, 0, 0, 0];
     let D = [0, 0, 0, 0, 0];
     let E = [0, 0, 0, 0, 0];
     for (let i = 0; i < caddy1.length; i++) {
-        if (caddy1[i].TREATMENT.localeCompare(etichetta) == 0) {
+        if (caddy1[i].TREATMENT.localeCompare("5C") == 0) {
             if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if (caddy1[i].AGE < 30) {
                     A[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
@@ -263,7 +263,7 @@ function filterAge(nutData, etichetta) {
 
     }
     for (let i = 0; i < caddy2.length; i++) {
-        if (caddy2[i].TREATMENT.localeCompare(etichetta) == 0) {
+        if (caddy2[i].TREATMENT.localeCompare("5C") == 0) {
             if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if (caddy2[i].AGE < 30) {
                     A[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
@@ -328,15 +328,474 @@ function filterAge(nutData, etichetta) {
             }
         }
     }
-    // console.log(etichetta + ' score: A,B,C,D,E.');
+    // console.log('Nutriscore 5C: A,B,C,D,E.');
     // console.log(A);
     // console.log(B);
     // console.log(C);
     // console.log(D);
     // console.log(E);
 
-    let dataset = conversioneInDataset(A, B, C, D, E);
-    return dataset;
+    let dataset5C = conversioneInDataset(A, B, C, D, E);
+    return dataset5C;
+}
+
+function filterAgeTL(nutData) {
+    caddyFilterBought(nutData);
+
+    // Traffic Lights
+    let A = [0, 0, 0, 0, 0];
+    let B = [0, 0, 0, 0, 0];
+    let C = [0, 0, 0, 0, 0];
+    let D = [0, 0, 0, 0, 0];
+    let E = [0, 0, 0, 0, 0];
+    for (let i = 0; i < caddy1.length; i++) {
+        if (caddy1[i].TREATMENT.localeCompare("TL") == 0) {
+            if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    A[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    A[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    A[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    A[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    A[4] -= caddy1[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    B[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    B[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    B[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    B[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    B[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    C[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    C[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    C[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    C[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    C[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    D[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    D[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    D[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    D[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    D[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    E[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    E[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    E[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    E[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    E[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            }
+        }
+
+    }
+    for (let i = 0; i < caddy2.length; i++) {
+        if (caddy2[i].TREATMENT.localeCompare("TL") == 0) {
+            if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    A[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    A[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    A[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    A[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    A[4] += caddy2[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    B[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    B[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    B[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    B[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    B[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    C[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    C[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    C[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    C[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    C[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    D[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    D[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    D[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    D[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    D[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    E[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    E[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    E[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    E[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    E[4] += caddy2[i].QUANTITY; // 60+
+                }
+            }
+        }
+    }
+    // console.log('Traffic Lights score: A,B,C,D,E.');
+    // console.log(A);
+    // console.log(B);
+    // console.log(C);
+    // console.log(D);
+    // console.log(E);
+
+    let datasetTL = conversioneInDataset(A, B, C, D, E);
+    return datasetTL;
+}
+
+function filterAgeRIGDA(nutData) {
+    // GDA guideline daily amounts per tutti
+    caddyFilterBought(nutData);
+
+    let A = [0, 0, 0, 0, 0];
+    let B = [0, 0, 0, 0, 0];
+    let C = [0, 0, 0, 0, 0];
+    let D = [0, 0, 0, 0, 0];
+    let E = [0, 0, 0, 0, 0];
+    for (let i = 0; i < caddy1.length; i++) {
+        if (caddy1[i].TREATMENT.localeCompare("RI-GDA") == 0) {
+            if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    A[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    A[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    A[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    A[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    A[4] -= caddy1[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    B[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    B[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    B[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    B[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    B[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    C[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    C[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    C[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    C[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    C[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    D[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    D[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    D[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    D[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    D[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    E[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    E[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    E[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    E[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    E[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            }
+        }
+
+    }
+    for (let i = 0; i < caddy2.length; i++) {
+        if (caddy2[i].TREATMENT.localeCompare("RI-GDA") == 0) {
+            if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    A[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    A[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    A[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    A[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    A[4] += caddy2[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    B[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    B[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    B[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    B[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    B[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    C[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    C[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    C[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    C[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    C[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    D[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    D[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    D[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    D[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    D[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    E[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    E[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    E[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    E[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    E[4] += caddy2[i].QUANTITY; // 60+
+                }
+            }
+        }
+    }
+    // console.log('RIGDA score: A,B,C,D,E.');
+    // console.log(A);
+    // console.log(B);
+    // console.log(C);
+    // console.log(D);
+    // console.log(E);
+
+    let datasetRIGDA = conversioneInDataset(A, B, C, D, E);
+    return datasetRIGDA;
+}
+
+function filterAgeNeutre(nutData) {
+    // GDA guideline daily amounts per tutti
+    caddyFilterBought(nutData);
+
+    let A = [0, 0, 0, 0, 0];
+    let B = [0, 0, 0, 0, 0];
+    let C = [0, 0, 0, 0, 0];
+    let D = [0, 0, 0, 0, 0];
+    let E = [0, 0, 0, 0, 0];
+    for (let i = 0; i < caddy1.length; i++) {
+        if (caddy1[i].TREATMENT.localeCompare("neutre") == 0) {
+            if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    A[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    A[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    A[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    A[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    A[4] -= caddy1[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    B[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    B[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    B[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    B[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    B[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    C[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    C[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    C[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    C[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    C[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    D[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    D[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    D[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    D[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    D[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            } else if (caddy1[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy1[i].AGE < 30) {
+                    E[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy1[i].AGE < 40) {
+                    E[1] -= caddy1[i].QUANTITY; //30+
+                } else if (caddy1[i].AGE < 50) {
+                    E[2] -= caddy1[i].QUANTITY; // 40+
+                } else if (caddy1[i].AGE < 60) {
+                    E[3] -= caddy1[i].QUANTITY; // 50+
+                } else {
+                    E[4] -= caddy1[i].QUANTITY; // 60+
+                }
+            }
+        }
+
+    }
+    for (let i = 0; i < caddy2.length; i++) {
+        if (caddy2[i].TREATMENT.localeCompare("neutre") == 0) {
+            if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    A[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    A[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    A[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    A[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    A[4] += caddy2[i].QUANTITY; // 60+
+                }
+
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("B") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    B[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    B[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    B[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    B[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    B[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("C") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    C[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    C[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    C[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    C[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    C[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("D") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    D[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    D[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    D[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    D[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    D[4] += caddy2[i].QUANTITY; // 60+
+                }
+            } else if (caddy2[i].NUTRISCORE[1].localeCompare("E") == 0) {
+                if (caddy2[i].AGE < 30) {
+                    E[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                } else if (caddy2[i].AGE < 40) {
+                    E[1] += caddy2[i].QUANTITY; //30+
+                } else if (caddy2[i].AGE < 50) {
+                    E[2] += caddy2[i].QUANTITY; // 40+
+                } else if (caddy2[i].AGE < 60) {
+                    E[3] += caddy2[i].QUANTITY; // 50+
+                } else {
+                    E[4] += caddy2[i].QUANTITY; // 60+
+                }
+            }
+        }
+    }
+    // console.log('Neutre score: A,B,C,D,E.');
+    // console.log(A);
+    // console.log(B);
+    // console.log(C);
+    // console.log(D);
+    // console.log(E);
+
+    let datasetNeutre = conversioneInDataset(A, B, C, D, E);
+    return datasetNeutre;
 }
 
 
@@ -359,11 +818,9 @@ function vediStipendio(nutData) {
 }
 
 
-
-function filterSalary(nutData, etichetta) {
+// SALARY FILTER
+function filterSalary5C(nutData) {
     caddyFilterBought(nutData); // filtra le transazioni andate a buon fine, conta solo i prodotti nel carrello e comprate. Inoltre separa caddy1 e caddy2
-
-    // console.log(etichetta);
 
     // NutriScore
     let A = [0, 0, 0, 0, 0];
@@ -373,7 +830,14 @@ function filterSalary(nutData, etichetta) {
     let E = [0, 0, 0, 0, 0];
     for (let i = 0; i < caddy1.length; i++) {
 
-        if (caddy1[i].TREATMENT.localeCompare(etichetta) == 0) {
+
+        // ABBIAMO TROVATO CHE PER 6000+ NON C'è TREATMENT 5C <------------------------------------------ no data.
+        if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0) || (caddy1[i].INCOME.localeCompare("8000_plus") == 0)) {
+            console.log(caddy1[i].TREATMENT);
+        }
+
+
+        if (caddy1[i].TREATMENT.localeCompare("5C") == 0) {
             if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     A[0] -= caddy1[i].QUANTITY;
@@ -440,7 +904,7 @@ function filterSalary(nutData, etichetta) {
 
     }
     for (let i = 0; i < caddy2.length; i++) {
-        if (caddy2[i].TREATMENT.localeCompare(etichetta) == 0) {
+        if (caddy2[i].TREATMENT.localeCompare("5C") == 0) {
             if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     A[0] += caddy2[i].QUANTITY;
@@ -505,17 +969,28 @@ function filterSalary(nutData, etichetta) {
             }
         }
     }
-    console.log('Nutriscore SALARY ' + etichetta + ': A,B,C,D,E.');
+    console.log('Nutriscore SALARY 5C: A,B,C,D,E.');
     console.log(A);
     console.log(B);
     console.log(C);
     console.log(D);
     console.log(E);
 
-    let dataset = conversioneInDataset(A, B, C, D, E);
-    return dataset;
+    let dataset5C = conversioneInDataset(A, B, C, D, E);
+    return dataset5C;
 }
 
+function filterSalaryTL(nutData) {
+
+}
+
+function filterSalaryRIGDA(nutData) {
+
+}
+
+function filterSalaryNeutre(nutData) {
+
+}
 
 function chooseAsseX(option) {
     asseX = option;
@@ -839,10 +1314,27 @@ function createMidScatterplot2() {
 function createLabelChart1(asseX, label) {
     let data;
     if (asseX.localeCompare('anni') == 0) {
-        data = filterAge(nutData, label);
+        if (label.localeCompare('5C') == 0) {
+            data = filterAge5C(nutData);
+        } else if (label.localeCompare('TL') == 0) {
+            data = filterAgeTL(nutData);
+        } else if (label.localeCompare('RIGDA') == 0) {
+            data = filterAgeRIGDA(nutData);
+        } else if (label.localeCompare('neutre') == 0) {
+            data = filterAgeNeutre(nutData);
+        }
     } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
-        data = filterSalary(nutData, label);
+        if (label.localeCompare('5C') == 0) {
+            data = filterSalary5C(nutData);
+        } else if (label.localeCompare('TL') == 0) {
+            data = filterSalaryTL(nutData);
+        } else if (label.localeCompare('RIGDA') == 0) {
+            data = filterSalaryRIGDA(nutData);
+        } else if (label.localeCompare('neutre') == 0) {
+            data = filterSalaryNeutre(nutData);
+        }
     }
+
 
     // D3 code
 
@@ -856,6 +1348,9 @@ function createLabelChart1(asseX, label) {
     svg = d3.select("#bars");
     svg.selectAll("rect").remove();
     */
+
+
+
 
     //console.log(data);
 
@@ -957,6 +1452,7 @@ function createLabelChart1(asseX, label) {
 }
 
 function createLabelChart2(asseX, label) {
+<<<<<<< HEAD
     let data;
     if (asseX.localeCompare('anni') == 0) {
         data = filterAge(nutData, label);
@@ -1071,6 +1567,9 @@ function createLabelChart2(asseX, label) {
         .attr("class", "y axis")
         .call(yAxis);
     console.log('asd');
+=======
+
+>>>>>>> parent of 52a8d27... labelchart 1 e 2 mezzo-finito
 }
 
 
