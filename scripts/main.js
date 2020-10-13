@@ -10,6 +10,8 @@ let caddy2 = [];
 let fEta = ["20-29", "30-39", "40-49", "50-59", "60+"];
 let fStipendio = ["0-2000", "2000-4000", "4000-6000", "6000-8000", "8000+"];
 
+var options = ["Noise pressure Lw db(A)", "Noise power Lw db(A)"];
+
 let asseX = "anni";
 let lchart1 = "5C";
 let lchart2 = "TL";
@@ -54,7 +56,7 @@ function calculateSalaryArray(subject, stipendio) {
             fasceStipendio[2]++;
         } else if ((stipendio.localeCompare("6000_7000") == 0) || (stipendio.localeCompare("7000_8000") == 0)) {
             fasceStipendio[3]++;
-        } else { 
+        } else {
             fasceStipendio[4]++; // 8000_plus
         }
     }
@@ -75,6 +77,7 @@ function calculateNumberOfProducts(nutData) {
     product["proteines100g"] = nutData[0].PROTEINES_100G;
     product["sel100g"] = nutData[0].SEL_100G;
     product["fibres100g"] = nutData[0].FIBRES_100G;
+    product["nutriscore_letter"] = nutData[0].NUTRISCORE[1];
 
     univokeProducts.push(product);
     for (let i = 1; i < nutData.length; i++) {
@@ -105,6 +108,7 @@ function calculateNumberOfProducts(nutData) {
             product["proteines100g"] = nutData[i].PROTEINES_100G;
             product["sel100g"] = nutData[i].SEL_100G;
             product["fibres100g"] = nutData[i].FIBRES_100G;
+            product["nutriscore_letter"] = nutData[i].NUTRISCORE[1];
             univokeProducts.push(product);
         }
     }
@@ -805,15 +809,23 @@ function createMidScatterplot2() {
         .attr("cy", function (d) { return y(d.pricekgl); })
         .attr("r", 3)
         .attr("id", function (d) { return d.id; })
-        .style("fill", "#69b3a2")
+        .style("fill", function (d) {
+            if (d.nutriscore_letter.localeCompare("A") == 0) {
+                return "#008000";
+            } else if (d.nutriscore_letter.localeCompare("B") == 0) {
+                return "#7CFC00";
+            } else if (d.nutriscore_letter.localeCompare("C") == 0) {
+                return "#FFFF00";
+            } else if (d.nutriscore_letter.localeCompare("D") == 0) {
+                return "#FFA500";
+            } else return "#FF0000";
+        })
         .on("mouseover", function () {
             if (lastId != null) {
-                d3.select('[id=' + '\"' + lastId + '\"' + ']').style("fill", "#69b3a2");
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
                 //console.log("id selezionato: ", event.target.id);
             }
             //console.log("last id: ", lastId);
-            d3.select(this).style("fill", "red");
             d3.select(this).attr("r", 3 * 2);
             loadInfo(nutProducts, event.target.id);
             lastId = event.target.id;
@@ -892,14 +904,14 @@ function createLabelChart1(asseX, label) {
 
     if (asseX.localeCompare("anni") == 0) {
         var xScaleLabels = d3.scalePoint()
-        .domain(fEta)
-        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+            .domain(fEta)
+            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
     } else {
         var xScaleLabels = d3.scalePoint()
-        .domain(fStipendio)
-        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+            .domain(fStipendio)
+            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
     }
-    
+
 
     var axisTop2 = d3
         .axisBottom()
@@ -933,8 +945,8 @@ function createLabelChart1(asseX, label) {
             // console.log(data);
             if (d == 0) {
                 return Math.abs(y(0) - y(d) + 1);
-            } else 
-            return Math.abs(y(0) - y(d));
+            } else
+                return Math.abs(y(0) - y(d));
         })
         .attr("x", function (d, i) { return x0(i); })
         .attr("y", function (d) { return y(Math.max(0, d)); });
@@ -953,6 +965,32 @@ function createLabelChart1(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+
+        // FINIRE QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    // var color = d3.scaleOrdinal()
+    //     .domain()
+    //     .range();
+
+    // // legend
+    // var legend = svg.selectAll(".legend")
+    //     .data(options.slice())
+    //     .enter().append("g")
+    //     .attr("class", "legend")
+    //     .attr("transform", function (d, i) { return "translate(-50," + i * 20 + ")"; });
+
+    // legend.append("rect")
+    //     .attr("x", width + 18)
+    //     .attr("width", 15)
+    //     .attr("height", 15)
+    //     .style("fill", color);
+
+    // legend.append("text")
+    //     .attr("x", width + 40)
+    //     .attr("y", 9)
+    //     .attr("dy", ".35em")
+    //     .style("text-anchor", "start")
+    //     .text(function (d) { return d; });
 
 }
 
@@ -1012,14 +1050,14 @@ function createLabelChart2(asseX, label) {
 
     if (asseX.localeCompare("anni") == 0) {
         var xScaleLabels = d3.scalePoint()
-        .domain(fEta)
-        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+            .domain(fEta)
+            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
     } else {
         var xScaleLabels = d3.scalePoint()
-        .domain(fStipendio)
-        .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+            .domain(fStipendio)
+            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
     }
-    
+
 
     var axisTop2 = d3
         .axisBottom()
@@ -1050,8 +1088,8 @@ function createLabelChart2(asseX, label) {
             // console.log(data);
             if (d == 0) {
                 return Math.abs(y(0) - y(d) + 1);
-            } else 
-            return Math.abs(y(0) - y(d));
+            } else
+                return Math.abs(y(0) - y(d));
         })
         .attr("x", function (d, i) { return x0(i); })
         .attr("y", function (d) { return y(Math.max(0, d)); });
@@ -1158,13 +1196,9 @@ d3.csv("data/dc.csv", function (error, csv) {
 
     createLabelChart1('anni', '5C');
     createLabelChart2('anni', 'TL');
-
     calculateNumberOfProducts(nutData);
     createLeftBarChart();
     createLeftSalaryBarChart();
     createMidScatterplot2();
     caddyFilterBought(nutData);
-    filterAge5C(nutData);
-    filterAgeTL(nutData);
-    filterAgeRIGDA(nutData);
 });
