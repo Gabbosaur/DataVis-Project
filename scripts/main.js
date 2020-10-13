@@ -1070,7 +1070,7 @@ function createLabelChart2(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
-
+    console.log('asd');
 }
 
 
