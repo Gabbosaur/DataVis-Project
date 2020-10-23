@@ -10,6 +10,7 @@ let caddy2 = [];
 let fEta = ["20-29", "30-39", "40-49", "50-59", "60+"];
 let fStipendio = ["0-2000", "2000-4000", "4000-6000", "6000-8000", "8000+"];
 
+
 var options = ["Noise pressure Lw db(A)", "Noise power Lw db(A)"];
 
 let asseX = "anni";
@@ -875,11 +876,20 @@ function createLabelChart1(asseX, label) {
         width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
+
+
+    // varia l'asse in base al dataset che gli passiamo
+    // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
 
 
 
-    //console.log(y0); // 55
+    // fissiamo il valore massimo dell'asse y per favorire il confronto visivo
+    if (asseX.localeCompare('anni') == 0) {
+        var y0 = 35;
+    } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
+        var y0 = 45;
+    }
+
     var y = d3.scaleLinear()
         .domain([-y0, y0])
         .range([height, 0]);
@@ -967,7 +977,7 @@ function createLabelChart1(asseX, label) {
         .call(yAxis);
 
 
-        // FINIRE QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    // FINIRE QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     // var color = d3.scaleOrdinal()
     //     .domain()
     //     .range();
@@ -1021,8 +1031,15 @@ function createLabelChart2(asseX, label) {
         width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
+    // varia l'asse in base al dataset che gli passiamo
+    // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
 
+    // fissiamo il valore massimo dell'asse y per favorire il confronto visivo
+    if (asseX.localeCompare('anni') == 0) {
+        var y0 = 35;
+    } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
+        var y0 = 45;
+    }
 
 
     //console.log(y0); // 55
@@ -1108,6 +1125,151 @@ function createLabelChart2(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+}
+
+function createBestLabelChart(nutData) {
+    let dataset5C = filterAge(nutData, "5C");
+    let datasetTL = filterAge(nutData, "TL");
+    let datasetRIGDA = filterAge(nutData, "RI-GDA");
+    let datasetNeutral = filterAge(nutData, "neutre");
+
+    let score5C = 0;
+    let scoreTL = 0;
+    let scoreRIGDA = 0;
+    let scoreNeutral = 0;
+
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+            if (i == 0) {
+                score5C = score5C + dataset5C[i][j] * 2; // etichetta A verde scuro
+                scoreTL = scoreTL + datasetTL[i][j] * 2;
+                scoreRIGDA = scoreRIGDA + datasetRIGDA[i][j] * 2;
+                scoreNeutral = scoreNeutral + datasetNeutral[i][j] * 2;
+            } else if (i == 1) {
+                score5C = score5C + dataset5C[i][j] * 1; // etichetta B verde chiaro
+                scoreTL = scoreTL + datasetTL[i][j] * 1;
+                scoreRIGDA = scoreRIGDA + datasetRIGDA[i][j] * 1;
+                scoreNeutral = scoreNeutral + datasetNeutral[i][j] * 1;
+            } else if (i == 2) {
+                score5C = score5C + dataset5C[i][j] * 0; // etichetta C gialla
+                scoreTL = scoreTL + datasetTL[i][j] * 0;
+                scoreRIGDA = scoreRIGDA + datasetRIGDA[i][j] * 0;
+                scoreNeutral = scoreNeutral + datasetNeutral[i][j] * 0;
+            } else if (i == 3) {
+                score5C = score5C - dataset5C[i][j] * 1; // etichetta D arancio
+                scoreTL = scoreTL - datasetTL[i][j] * 1;
+                scoreRIGDA = scoreRIGDA - datasetRIGDA[i][j] * 1;
+                scoreNeutral = scoreNeutral - datasetNeutral[i][j] * 1;
+            } else {
+                score5C = score5C - dataset5C[i][j] * 2; // etichetta E rossa
+                scoreTL = scoreTL - datasetTL[i][j] * 2;
+                scoreRIGDA = scoreRIGDA - datasetRIGDA[i][j] * 2;
+                scoreNeutral = scoreNeutral - datasetNeutral[i][j] * 2;
+            }
+        }
+    }
+
+    let dataset = [score5C, scoreTL, scoreRIGDA, scoreNeutral];
+    let fLabel = ["Nutriscore 5C", "Traffic Lights", "RI-GDA", "Neutral"];
+
+    // D3 code
+    var margin = { top: 20, right: 20, bottom: 50, left: 70 };
+    var width = 500 - margin.left - margin.right;
+    var height = 600 - margin.top - margin.bottom;
+
+    //add svg with margin !important
+    //this is svg is actually group
+    var svg = d3.select("#bestLabelChart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")  //add group to leave margin for axis
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    var maxHeight = d3.max(dataset, function (d) { return Math.abs(d) });
+    var minHeight = d3.min(dataset, function (d) { return Math.abs(d) })
+
+    //set y scale
+    var yScale = d3.scaleLinear()
+                .domain([maxHeight, -maxHeight])
+                .range([0, height]);
+
+    //add x axis
+    var xScale = d3.scaleBand()
+                .domain(fLabel)
+                .range([0, width]);//scaleBand is used for  bar chart
+    
+    var barPadding = 20;
+    var bars = svg.selectAll("rect")
+                .data(dataset)
+                .enter()
+                .append("rect");
+                
+    bars.attr("x", function (d, i) {
+        return i*(width/dataset.length) + barPadding;//i*(width/dataset.length);
+    })
+        .attr("y", function (d) {
+            if (d < 0) {
+                return height / 2;
+            }
+            else {
+                return yScale(d);
+            }
+
+        })//for bottom to top
+        .attr("width", function (d) {
+            return (width / dataset.length) - 2*barPadding;
+        })
+        .attr("height", function (d) {
+            return height / 2 - yScale(Math.abs(d));
+        });
+    bars.attr("fill", function (d) {
+        if (d >= 0) {
+            return "green";
+        }
+        else {
+            return "orange";
+        }
+    });
+
+    //add tag to every bar
+    var tags = svg.selectAll("text").data(dataset).enter().append("text").text(function (d) {
+        return d;
+    });
+    tags.attr("x", function (d, i) {
+        return xScale(i) + 8;
+    })
+        .attr("y", function (d) {
+            if (d >= 0) {
+                return yScale(d) + 12;
+            }
+            else {
+                return height - yScale(Math.abs(d)) - 2;
+            }
+        })//for bottom to top
+        .attr("fill", "white");
+
+    //add x and y axis
+    var yAxis = d3.axisLeft(yScale);
+    svg.append("g").call(yAxis);
+
+
+    var xAxis = d3.axisBottom(xScale);/*.tickFormat("");remove tick label*/
+    svg.append("g").call(xAxis).attr("transform", "translate(0," + height / 2 + ")");
+
+    //add label for x axis and y axis
+    svg.append("text").text("Y Label")
+        .attr("x", 0 - height / 2)
+        .attr("y", 0 - margin.left)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)");
+    svg.append("text").text("X Label")
+        .attr("x", width / 2)
+        .attr("y", height + margin.bottom)
+        .style("text-anchor", "middle");
+
+
 }
 
 
@@ -1197,6 +1359,7 @@ d3.csv("data/dc.csv", function (error, csv) {
     createLabelChart1('anni', '5C');
     createLabelChart2('anni', 'TL');
     calculateNumberOfProducts(nutData);
+    createBestLabelChart(nutData);
     createLeftBarChart();
     createLeftSalaryBarChart();
     createMidScatterplot2();
