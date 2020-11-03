@@ -1172,6 +1172,82 @@ function createBestLabelChart(nutData) {
     var dataset = [score5C, scoreTL, scoreRIGDA, scoreNeutral];
     var fLabel = ["Nutriscore 5C", "Traffic Lights", "RI-GDA", "Neutral"];
 
+
+
+    // test
+
+    var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labels
+    var rightMargin = 10; // Space to the right of last bar
+    var margin = {left: leftMargin, right: rightMargin, top: 10, bottom: 10};
+    var barWidth = 65;  // Width of the bars
+    var chartHeight = 450;  // Height of chart, from x-axis (ie. y=0)
+    var chartWidth = margin.left + dataset.length * barWidth + margin.right;
+
+    /* This scale produces negative output for negatve input */
+    var yScale = d3.scaleLinear()
+                   .domain([0, d3.max(dataset)])
+                   .range([0, chartHeight]);
+
+    /*
+     * We need a different scale for drawing the y-axis. It needs
+     * a reversed range, and a larger domain to accomodate negaive values.
+     */
+    var yAxisScale = d3.scaleLinear()
+                       .domain([d3.min(dataset), d3.max(dataset)])
+                       .range([chartHeight - yScale(d3.min(dataset)), 0 ]);
+
+    var svg = d3.select('#bestLabelChart')
+                .append('svg');
+    svg
+        .attr('height', chartHeight + 100)
+        .attr('width', chartWidth)
+        .style('border', '1px solid');
+
+    svg
+      .selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+        .attr("x", function(d, i) { return margin.left + i * barWidth; })
+        .attr("y", function(d, i) { return chartHeight - Math.max(0, yScale(d));})
+        .attr("height", function(d) { return Math.abs(yScale(d)); })
+        .attr("width", barWidth)
+        .style("fill", "grey")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("opacity", function(d, i) { return 1 /*- (i * (1/data.length)); */});
+
+    var yAxis = d3.axisLeft(yAxisScale);
+    
+    svg.append('g')
+      .attr('transform', function(d) {
+        return 'translate(' + margin.left + ', 0)';
+      })
+      .call(yAxis);
+
+    /*
+    var xScale = d3.scaleLinear()
+                    .domain(0, data.length * barWidth)
+                    .range(0, chartWidth);
+
+    var xAxis = d3.axisBottom();
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // D3 code
     var margin = { top: 20, right: 20, bottom: 50, left: 70 };
     var width = 500 - margin.left - margin.right;
@@ -1182,18 +1258,32 @@ function createBestLabelChart(nutData) {
 
     var svg = d3.select("#bestLabelChart").append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")  //add group to leave margin for axis
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("height", height + margin.top + 2*margin.bottom) // <----- abbiamo messo 2* per ovviare il taglio dell'asse Y
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // magari eliminare margin.top <--------
 
 
     var maxHeight = d3.max(dataset, function (d) { return Math.abs(d) }) + 23;
     var minHeight = d3.min(dataset, function (d) { return Math.abs(d) });
 
     //set y scale
+    // var yScale = d3.scaleLinear()
+    //     .domain([maxHeight, -maxHeight])
+    //     .range([0, height]);
+
+    /* This scale produces negative output for negatve input */
     var yScale = d3.scaleLinear()
-        .domain([maxHeight, -maxHeight])
-        .range([0, height]);
+                   .domain([0, d3.max(dataset)])
+                   .range([height, 0]);
+
+    /*
+     * We need a different scale for drawing the y-axis. It needs
+     * a reversed range, and a larger domain to accomodate negaive values.
+     */
+    var yAxisScale = d3.scaleLinear()
+                       .domain([d3.min(dataset), d3.max(dataset)])
+                       .range([yScale(d3.min(dataset)), 0 ]);
+
 
     //add x axis
     var xScale = d3.scaleBand()
@@ -1211,7 +1301,7 @@ function createBestLabelChart(nutData) {
     })
         .attr("y", function (d) {
             if (d < 0) {
-                return height / 2;
+                return height;
             }
             else {
                 return yScale(d);
@@ -1222,7 +1312,7 @@ function createBestLabelChart(nutData) {
             return (width / dataset.length) - 2 * barPadding;
         })
         .attr("height", function (d) {
-            return height / 2 - yScale(Math.abs(d));
+            return height - yScale(Math.abs(d));
         })
         .on("mouseover", function (d) {
             d3.select(this) // barra
@@ -1257,12 +1347,12 @@ function createBestLabelChart(nutData) {
     });
 
     // add x and y axis
-    var yAxis = d3.axisLeft(yScale);
+    var yAxis = d3.axisLeft(yAxisScale);
     svg.append("g").call(yAxis);
 
 
     var xAxis = d3.axisBottom(xScale);/*.tickFormat("");remove tick label*/
-    svg.append("g").call(xAxis).attr("transform", "translate(0," + height / 2 + ")");
+    svg.append("g").call(xAxis).attr("transform", "translate(0," + height + ")");
 
     //add label for x axis and y axis
     // svg.append("text").text("Score")
