@@ -816,7 +816,7 @@ function createMidScatterplot2() {
             } else if (d.nutriscore_letter.localeCompare("B") == 0) {
                 return "#7CFC00";
             } else if (d.nutriscore_letter.localeCompare("C") == 0) {
-                return "#FFFF00";
+                return "#FFF500";
             } else if (d.nutriscore_letter.localeCompare("D") == 0) {
                 return "#FFA500";
             } else return "#FF0000";
@@ -851,10 +851,13 @@ function createMidScatterplot2() {
 
 function createLabelChart1(asseX, label) {
     var data;
+    var labelX;
     if (asseX.localeCompare('anni') == 0) {
         data = filterAge(nutData, label);
+        labelX = "Age";
     } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
         data = filterSalary(nutData, label);
+        labelX = "Salary";
     }
 
     // D3 code
@@ -872,11 +875,12 @@ function createLabelChart1(asseX, label) {
 
     //console.log(data);
 
-    var margin = { top: 20, right: 30, bottom: 30, left: 40 },
+    var margin = { top: 20, right: 30, bottom: 50, left: 50 },
         width = 600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 530 - margin.top - margin.bottom;
 
-
+    var div = d3.select("#labelChart1").append("div")
+        .attr("class", "tooltip");
 
     // varia l'asse in base al dataset che gli passiamo
     // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
@@ -905,7 +909,7 @@ function createLabelChart1(asseX, label) {
         .paddingOuter(1);
 
     var z = d3.scaleOrdinal()
-        .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
+        .range(["#008000", "#7CFC00", "#FFF500", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
 
     // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
 
@@ -959,7 +963,31 @@ function createLabelChart1(asseX, label) {
                 return Math.abs(y(0) - y(d));
         })
         .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return y(Math.max(0, d)); });
+        .attr("y", function (d) { return y(Math.max(0, d)); })
+        // .attr("class", "barstroke")
+        .on("mouseover", function (d) {
+            d3.select(this) // barra
+                .transition()
+                .duration(300)
+                .style("opacity", 0.8);
+        })
+        .on("mousemove", function (d) {
+            div.transition() // tooltip box
+                .duration(50)
+                .style("opacity", 1);
+            div.html(d)
+                .style('left', (d3.event.pageX - 15) + 'px')
+                .style('top', (d3.event.pageY) + 'px');
+        })
+        .on("mouseout", function (d) {
+            d3.select(this)  // barra
+                .transition()
+                .duration(300)
+                .style("opacity", 1);
+            div.transition() // tooltip box
+                .duration(300)
+                .style("opacity", 0)
+        });
 
     // axis
     // svg.append("g")
@@ -975,6 +1003,20 @@ function createLabelChart1(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+    // Label Y
+    svg.append("text").text("Delta purchases Δ")
+        .attr("x", 0 - height / 2)
+        .attr("y", 0 - margin.left)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)");
+
+    // Label X
+    svg.append("text").text(labelX)
+        .attr("x", width / 2)
+        .attr("y", height + margin.bottom)
+        .style("text-anchor", "middle");
 
 
     // FINIRE QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1006,10 +1048,13 @@ function createLabelChart1(asseX, label) {
 
 function createLabelChart2(asseX, label) {
     var data;
+    var labelX;
     if (asseX.localeCompare('anni') == 0) {
         data = filterAge(nutData, label);
+        labelX = "Age";
     } else if (asseX.localeCompare('stipendio') == 0) {    //  ELSE IF asseX == 'stipendio'
         data = filterSalary(nutData, label);
+        labelX = "Salary";
     }
 
     // D3 code
@@ -1018,7 +1063,7 @@ function createLabelChart2(asseX, label) {
         m = 5; // number of bars per group
 
 
-    var svg = d3.select("#graph2lc");
+    var svg = d3.select("#labelChart2svg");
     svg.remove();
     /*
     svg = d3.select("#bars");
@@ -1027,9 +1072,12 @@ function createLabelChart2(asseX, label) {
 
     //console.log(data);
 
-    var margin = { top: 20, right: 30, bottom: 30, left: 40 },
+    var margin = { top: 20, right: 30, bottom: 50, left: 50 },
         width = 600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 530 - margin.top - margin.bottom;
+
+    var div = d3.select("#labelChart2").append("div")
+        .attr("class", "tooltip");
 
     // varia l'asse in base al dataset che gli passiamo
     // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
@@ -1058,7 +1106,7 @@ function createLabelChart2(asseX, label) {
         .paddingOuter(1);
 
     var z = d3.scaleOrdinal()
-        .range(["#008000", "#7CFC00", "#FFFF00", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
+        .range(["#008000", "#7CFC00", "#FFF500", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
 
     // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
 
@@ -1066,6 +1114,7 @@ function createLabelChart2(asseX, label) {
     var yAxis = d3.axisLeft(y);
 
     if (asseX.localeCompare("anni") == 0) {
+
         var xScaleLabels = d3.scalePoint()
             .domain(fEta)
             .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
@@ -1087,7 +1136,7 @@ function createLabelChart2(asseX, label) {
     svg = d3.select("#labelChart2")
         .append("svg")
         .attr("viewBox", `0 0 600 600`)
-        .attr("id", "graph2lc")
+        .attr("id", "labelChart2svg")
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -1109,7 +1158,31 @@ function createLabelChart2(asseX, label) {
                 return Math.abs(y(0) - y(d));
         })
         .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return y(Math.max(0, d)); });
+        .attr("y", function (d) { return y(Math.max(0, d)); })
+        // .attr("class", "barstroke")
+        .on("mouseover", function (d) {
+            d3.select(this) // barra
+                .transition()
+                .duration(300)
+                .style("opacity", 0.8);
+        })
+        .on("mousemove", function (d) {
+            div.transition() // tooltip box
+                .duration(50)
+                .style("opacity", 1);
+            div.html(d)
+                .style('left', (d3.event.pageX - 15) + 'px')
+                .style('top', (d3.event.pageY) + 'px');
+        })
+        .on("mouseout", function (d) {
+            d3.select(this)  // barra
+                .transition()
+                .duration(300)
+                .style("opacity", 1);
+            div.transition() // tooltip box
+                .duration(300)
+                .style("opacity", 0);
+        });;
 
     // axis
     // svg.append("g")
@@ -1125,6 +1198,19 @@ function createLabelChart2(asseX, label) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+    // Label Y
+    svg.append("text").text("Delta purchases Δ")
+        .attr("x", 0 - height / 2)
+        .attr("y", 0 - margin.left)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)");
+    // Label X
+    svg.append("text").text(labelX)
+        .attr("x", width / 2)
+        .attr("y", height + margin.bottom)
+        .style("text-anchor", "middle");
 }
 
 function createBestLabelChart(nutData) {
@@ -1173,81 +1259,6 @@ function createBestLabelChart(nutData) {
     var fLabel = ["Nutriscore 5C", "Traffic Lights", "RI-GDA", "Neutral"];
 
 
-
-    // test
-
-    var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labels
-    var rightMargin = 10; // Space to the right of last bar
-    var margin = {left: leftMargin, right: rightMargin, top: 10, bottom: 10};
-    var barWidth = 65;  // Width of the bars
-    var chartHeight = 450;  // Height of chart, from x-axis (ie. y=0)
-    var chartWidth = margin.left + dataset.length * barWidth + margin.right;
-
-    /* This scale produces negative output for negatve input */
-    var yScale = d3.scaleLinear()
-                   .domain([0, d3.max(dataset)])
-                   .range([0, chartHeight]);
-
-    /*
-     * We need a different scale for drawing the y-axis. It needs
-     * a reversed range, and a larger domain to accomodate negaive values.
-     */
-    var yAxisScale = d3.scaleLinear()
-                       .domain([d3.min(dataset), d3.max(dataset)])
-                       .range([chartHeight - yScale(d3.min(dataset)), 0 ]);
-
-    var svg = d3.select('#bestLabelChart')
-                .append('svg');
-    svg
-        .attr('height', chartHeight + 100)
-        .attr('width', chartWidth)
-        .style('border', '1px solid');
-
-    svg
-      .selectAll("rect")
-      .data(dataset)
-      .enter()
-      .append("rect")
-        .attr("x", function(d, i) { return margin.left + i * barWidth; })
-        .attr("y", function(d, i) { return chartHeight - Math.max(0, yScale(d));})
-        .attr("height", function(d) { return Math.abs(yScale(d)); })
-        .attr("width", barWidth)
-        .style("fill", "grey")
-        .style("stroke", "black")
-        .style("stroke-width", "1px")
-        .style("opacity", function(d, i) { return 1 /*- (i * (1/data.length)); */});
-
-    var yAxis = d3.axisLeft(yAxisScale);
-    
-    svg.append('g')
-      .attr('transform', function(d) {
-        return 'translate(' + margin.left + ', 0)';
-      })
-      .call(yAxis);
-
-    /*
-    var xScale = d3.scaleLinear()
-                    .domain(0, data.length * barWidth)
-                    .range(0, chartWidth);
-
-    var xAxis = d3.axisBottom();
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // D3 code
     var margin = { top: 20, right: 20, bottom: 50, left: 70 };
     var width = 500 - margin.left - margin.right;
@@ -1258,7 +1269,7 @@ function createBestLabelChart(nutData) {
 
     var svg = d3.select("#bestLabelChart").append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + 2*margin.bottom) // <----- abbiamo messo 2* per ovviare il taglio dell'asse Y
+        .attr("height", height + margin.top + 2 * margin.bottom) // <----- abbiamo messo 2* per ovviare il taglio dell'asse Y
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // magari eliminare margin.top <--------
 
@@ -1273,16 +1284,16 @@ function createBestLabelChart(nutData) {
 
     /* This scale produces negative output for negatve input */
     var yScale = d3.scaleLinear()
-                   .domain([0, d3.max(dataset)])
-                   .range([height, 0]);
+        .domain([0, d3.max(dataset)])
+        .range([height, 0]);
 
     /*
      * We need a different scale for drawing the y-axis. It needs
      * a reversed range, and a larger domain to accomodate negaive values.
      */
     var yAxisScale = d3.scaleLinear()
-                       .domain([d3.min(dataset), d3.max(dataset)])
-                       .range([yScale(d3.min(dataset)), 0 ]);
+        .domain([d3.min(dataset), d3.max(dataset)])
+        .range([yScale(d3.min(dataset)), 0]);
 
 
     //add x axis
@@ -1354,19 +1365,13 @@ function createBestLabelChart(nutData) {
     var xAxis = d3.axisBottom(xScale);/*.tickFormat("");remove tick label*/
     svg.append("g").call(xAxis).attr("transform", "translate(0," + height + ")");
 
-    //add label for x axis and y axis
-    // svg.append("text").text("Score")
-    //     .attr("x", 0 - height / 2)
-    //     .attr("y", 0 - margin.left)
-    //     .attr("dy", "1em")
-    //     .style("text-anchor", "middle")
-    //     .attr("transform", "rotate(-90)");
-    // svg.append("text").text("Labels")
-    //     .attr("x", width / 2)
-    //     .attr("y", height + margin.bottom)
-    //     .style("text-anchor", "middle");
-
-
+    // Add Label Y
+    svg.append("text").text("Delta purchases Δ")
+        .attr("x", 0 - height / 2)
+        .attr("y", 0 - margin.left)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)");
 }
 
 

@@ -54,18 +54,27 @@ html {
   text-align: center;
 }
 
-.tooltip{
-  position      : absolute;
-  text-align    : center;
-  max-width     : 70px;
-  max-height    : 30px;
-  padding       : 8px;
-  border        : none;
-  border-radius : 8px;
-  margin-top    : -30px;
-  font          : 10px sans-serif;
-  background    : #009688;
-  color         : white;
+.tooltip {
+  position: absolute;
+  text-align: center;
+  max-width: 70px;
+  max-height: 30px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  margin-top: -30px;
+  font: 10px sans-serif;
+  background: #009688;
+  color: white;
   pointer-events: none;
-  opacity       : 0;
+  opacity: 0;
 }
+
+/* .barstroke {
+  pointer-events: all;
+}
+
+.barstroke:hover {
+  stroke: #838383;
+  stroke-width: 2;
+} */
