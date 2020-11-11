@@ -546,6 +546,24 @@ function chooseLChart2(label) {
     }
 }
 
+function animateValue(id, start, end, duration) {
+    if (start === end) return;
+    var range = end - start;
+    var current = start;
+    var increment = end > start ? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var obj = document.getElementById(id);
+    var timer = setInterval(function () {
+        current += increment;
+        obj.innerHTML = current;
+        if (current == end) {
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
+
+
+
 // D3 code
 function createLeftBarChart() {
     var data = [{
@@ -571,14 +589,14 @@ function createLeftBarChart() {
     ];
 
     var totPartecipanti = fasceEta[0] + fasceEta[1] + fasceEta[2] + fasceEta[3] + fasceEta[4];
-    document.getElementById("totPartecipanti").innerHTML = totPartecipanti + " partecipants";
-
+    // document.getElementById("totPartecipanti").innerHTML = totPartecipanti;
+    animateValue("contatore", 0, totPartecipanti, 2500);
     // console.log(data);
 
     // Create left horizontal bar chart
     var margin = {
         top: 15,
-        right: 25,
+        right: 55,
         bottom: 15,
         left: 50
     };
@@ -654,6 +672,7 @@ function createLeftBarChart() {
             return d.value;
         });
 
+
     d3.select(".domain").remove();
 
 };
@@ -684,7 +703,7 @@ function createLeftSalaryBarChart() {
     // Create left horizontal bar chart
     var margin = {
         top: 15,
-        right: 25,
+        right: 55,
         bottom: 15,
         left: 50
     };
@@ -945,6 +964,8 @@ function createLabelChart1(asseX, label) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+
     svg.append("g").attr("id", "bars").selectAll("g")
         .data(data)
         .enter().append("g")
@@ -957,13 +978,10 @@ function createLabelChart1(asseX, label) {
         .attr("height", function (d) {
             //console.log(y(d));
             // console.log(data);
-            if (d == 0) {
-                return Math.abs(y(0) - y(d) + 1);
-            } else
-                return Math.abs(y(0) - y(d));
+            return 0; // punto iniziale per transizione
         })
         .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return y(Math.max(0, d)); })
+        .attr("y", function (d) { return height / 2; }) // per transizione
         // .attr("class", "barstroke")
         .on("mouseover", function (d) {
             d3.select(this) // barra
@@ -987,7 +1005,31 @@ function createLabelChart1(asseX, label) {
             div.transition() // tooltip box
                 .duration(300)
                 .style("opacity", 0)
-        });
+        })
+        .transition()
+        .delay(function (d, i) {
+            return i * 100;
+        })
+        .duration(300)
+        .attr("height", function (d) {
+            if (d == 0) {
+                return Math.abs(y(0) - y(d) + 1);
+            } else
+                return Math.abs(y(0) - y(d));
+        })
+        .attr("y", function (d) { return y(Math.max(0, d)); });
+
+
+    // svg.selectAll("rect")
+    //     .transition()
+    //     .duration(300)
+    //     .attr("height", function (d) {
+    //         if (d == 0) {
+    //             return Math.abs(y(0) - y(d) + 1);
+    //         } else
+    //             return Math.abs(y(0) - y(d));
+    //     })
+    //     .attr("y", function (d) { return y(Math.max(0, d)); });
 
     // axis
     // svg.append("g")
@@ -1152,13 +1194,10 @@ function createLabelChart2(asseX, label) {
         .attr("height", function (d) {
             //console.log(y(d));
             // console.log(data);
-            if (d == 0) {
-                return Math.abs(y(0) - y(d) + 1);
-            } else
-                return Math.abs(y(0) - y(d));
+            return 0;
         })
         .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return y(Math.max(0, d)); })
+        .attr("y", function (d) { return height / 2; })
         // .attr("class", "barstroke")
         .on("mouseover", function (d) {
             d3.select(this) // barra
@@ -1182,7 +1221,21 @@ function createLabelChart2(asseX, label) {
             div.transition() // tooltip box
                 .duration(300)
                 .style("opacity", 0);
-        });;
+        })
+        .transition()
+        .delay(function (d, i) {
+            return i * 100;
+        })
+        .duration(300)
+        .attr("height", function (d) {
+            if (d == 0) {
+                return Math.abs(y(0) - y(d) + 1);
+            } else
+                return Math.abs(y(0) - y(d));
+        })
+        .attr("y", function (d) {
+            return y(Math.max(0, d));
+        });
 
     // axis
     // svg.append("g")
