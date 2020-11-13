@@ -1419,7 +1419,7 @@ function createBestLabelChart(nutData) {
     svg.append("g").call(xAxis).attr("transform", "translate(0," + height + ")");
 
     // Add Label Y
-    svg.append("text").text("Delta purchases Δ")
+    svg.append("text").text("Weighted delta purchases wΔ")
         .attr("x", 0 - height / 2)
         .attr("y", 0 - margin.left)
         .attr("dy", "1em")
