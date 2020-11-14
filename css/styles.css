@@ -77,14 +77,17 @@ html {
     font-size: medium;
 }
 
-@media screen and (max-width: 599px) {
-    #labelChart1 {
-        width: 1400px;
+.vl {
+
+    height: 1px;
+    opacity: 0;
+  }
+
+/* @media screen and (max-width: 1200px) {
+    .vl {
+        display: inline;
     }
-    #labelChart2 {
-        width: 1400px;
-    }
-}
+} */
 
 
 /* .barstroke {

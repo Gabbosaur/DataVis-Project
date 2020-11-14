@@ -895,8 +895,8 @@ function createLabelChart1(asseX, label) {
     //console.log(data);
 
     var margin = { top: 20, right: 30, bottom: 50, left: 50 },
-        width = 600 - margin.left - margin.right,
-        height = 530 - margin.top - margin.bottom;
+        width = 550 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
 
     var div = d3.select("#labelChart1").append("div")
         .attr("class", "tooltip");
@@ -956,9 +956,9 @@ function createLabelChart1(asseX, label) {
 
     svg = d3.select("#labelChart1")
         .append("svg")
-        //.attr("viewBox", `0 0 600 600`)
-        .attr("width", "600")
-        .attr("height", "600")
+        .attr("viewBox", `0 0 600 600`)
+        // .attr("width", "600")
+        // .attr("height", "600")
         .attr("id", "graph1lc")
         // var svg = d3.select("#labelChart1").append("svg")
         //     .attr("width", width + margin.left + margin.right)
@@ -1119,8 +1119,8 @@ function createLabelChart2(asseX, label) {
     //console.log(data);
 
     var margin = { top: 20, right: 30, bottom: 50, left: 50 },
-        width = 600 - margin.left - margin.right,
-        height = 530 - margin.top - margin.bottom;
+        width = 550 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
 
     var div = d3.select("#labelChart2").append("div")
         .attr("class", "tooltip");
@@ -1181,9 +1181,9 @@ function createLabelChart2(asseX, label) {
 
     svg = d3.select("#labelChart2")
         .append("svg")
-        //.attr("viewBox", `0 0 600 600`)
-        .attr("width", "600")
-        .attr("height", "600")
+        .attr("viewBox", `0 0 600 600`)
+        // .attr("width", "600")
+        // .attr("height", "600")
         .attr("id", "labelChart2svg")
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
