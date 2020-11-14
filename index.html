@@ -27,16 +27,14 @@
                 <a href="#about" class="w3-bar-item w3-button">ABOUT US</a>
             </div>
             <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
-                onclick="w3_open()">
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
                 <i class="fa fa-bars"></i>
             </a>
         </div>
     </div>
     <!-- Sidebar on small screens when clicking the menu icon -->
     <div>
-        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
-            style="display:none" id="mySidebar">
+        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close
                 ×</a>
             <a href="#home" onclick="w3_close()" class="w3-bar-item w3-button">PROJECT</a>
@@ -63,7 +61,8 @@
                 </div>
                 <hr>
                 <p class="textLarge">Age</p>
-                <div id="hBarchart"></div> <!-- BONUS DA FARE: Responsività delle barre che si adattano alla pagina -->
+                <div id="hBarchart"></div>
+                <!-- BONUS DA FARE: Responsività delle barre che si adattano alla pagina -->
                 <hr>
                 <p class="textLarge">Salary</p>
                 <div id="salaryhBarChart"></div>
@@ -111,56 +110,40 @@
 
         <hr>
         <div class="w3-row">
-            <div class="w3-col l6">
+            <div class="w3-col l8">
                 <h3>Il nostro progetto</h3>
                 <p>Il nostro progetto verte su un'analisi dei dati sul comportamento...
-                    <br>
-                    L'esperimento è volto a studiare il comportamento degli acquirenti in base all'etichetta del
-                    prodotto.
-
-                    La nostra prima fase è di analizzare il dataset assegnato e valutare quali analisi effettuare.
-                    In questo esperimento sono stati coinvolti 325 partecipanti in cui possiamo capire bene la
-                    distribuzione in termini di anni e stipendio.
-                    La simulazione di acquisto è stata effettuata al PC, in cui viene suddivisa in due fasi:
-                <ul>
-                    <li>Fase 1: i partecipanti visualizzano il catalogo e selezionano i prodotti da acquistare
-                        <strong>senza</strong> alcuna etichetta nutrizionale</li>
-                    <li>Fase 2: i partecipanti visualizzano il catalogo e selezionano i prodotti da acquistare
-                        <strong>con</strong> le loro etichette nutrizionali</li>
-                </ul>
-                Lo scatterplot rappresenta tutti i prodotti presenti nel catalogo del supermercato posizionati in base
-                loro prezzo al chilo/litro e al loro <a href="https://ec.europa.eu/food/sites/food/files/animals/docs/comm_ahac_20180423_pres4.pdf
-                    ">score FSA</a> (Food Standards Agency). Puntando sul relativo prodotto, viene visualizzato i
-                dettagli del prodotto a fianco dello scatterplot.
-                Sono state prese in considerazione 4 tipi di etichette:
-                <ul>
-                    <li>Nutri-score: è un sistema a 5 colori che suddivide i prodotti in categorie in base al punteggio
-                        legato alla qualità nutrizionale complessiva del prodotto su 100 g (energia, grassi, grassi
-                        saturi, zuccheri, sale, fibre, contenuto di frutta e verdura).</li>
-                    <li>Traffic lights: red means the product is high in a nutrient and you should try to cut down, eat
-                        less often or eat smaller amounts. Amber means medium. If a food contains mostly amber, you can
-                        eat it most of the time. Green means low.</li>
-                    <li>RI-GDA: reference intakes (RIs) are a means of communicating maximum recommended nutrient intake
-                        to the public. Reference Intakes replaced the term Guideline Daily Amount (GDA), although the
-                        principles behind both are the same. The major difference is that GDAs existed for men, women
-                        and children; there is only one set of RIs for an average adult.</li>
-                    <li>Neutral: this label is like the RI-GDA but without the percentage of daily intake.</li>
-                </ul>
-                Per valutare quale tra queste etichette sia la più efficace abbiamo svolto una profonda analisi.
-                Il grafico a fianco rappresenta sostanzialmente l'efficacia dell'etichetta, misurata con un parametro
-                pesato, seguendo la formula:<br>
-                <code> Δverdescuro*2 + Δverdechiaro*1 + Δgiallo*0 - Δarancio*1 - Δrosso*2</code><br>
-                Il parametro "Δverdescuro" è stato ricavato dalla differenza tra la quantità di prodotti classificati
-                verdescuro acquistati in fase 2 e la quantità di prodotti classificati verdescuro acquistati in fase 1
-
-                Abbiamo preso come riferimento i colori dell'etichetta Nutri-score 5C per effettuare un confronto avendo
-                la stessa classificazione del prodotto.
+                    <br> L'esperimento è volto a studiare il comportamento degli acquirenti in base all'etichetta del prodotto. La nostra prima fase è di analizzare il dataset assegnato e valutare quali analisi effettuare. In questo esperimento sono stati
+                    coinvolti 325 partecipanti in cui possiamo capire bene la distribuzione in termini di anni e stipendio. La simulazione di acquisto è stata effettuata al PC, in cui viene suddivisa in due fasi:
+                    <ul>
+                        <li>Fase 1: i partecipanti visualizzano il catalogo e selezionano i prodotti da acquistare
+                            <strong>senza</strong> alcuna etichetta nutrizionale</li>
+                        <li>Fase 2: i partecipanti visualizzano il catalogo e selezionano i prodotti da acquistare
+                            <strong>con</strong> le loro etichette nutrizionali</li>
+                    </ul>
+                    Lo scatterplot rappresenta tutti i prodotti presenti nel catalogo del supermercato posizionati in base loro prezzo al chilo/litro e al loro <a href="https://ec.europa.eu/food/sites/food/files/animals/docs/comm_ahac_20180423_pres4.pdf
+                    ">score FSA</a> (Food Standards Agency). Puntando sul relativo prodotto, viene visualizzato i dettagli del prodotto a fianco dello scatterplot. Sono state prese in considerazione 4 tipi di etichette:
+                    <ul>
+                        <li>Nutri-score: è un sistema a 5 colori che suddivide i prodotti in categorie in base al punteggio legato alla qualità nutrizionale complessiva del prodotto su 100 g (energia, grassi, grassi saturi, zuccheri, sale, fibre, contenuto
+                            di frutta e verdura).</li>
+                        <li>Traffic lights: red means the product is high in a nutrient and you should try to cut down, eat less often or eat smaller amounts. Amber means medium. If a food contains mostly amber, you can eat it most of the time. Green means
+                            low.
+                        </li>
+                        <li>RI-GDA: reference intakes (RIs) are a means of communicating maximum recommended nutrient intake to the public. Reference Intakes replaced the term Guideline Daily Amount (GDA), although the principles behind both are the same.
+                            The major difference is that GDAs existed for men, women and children; there is only one set of RIs for an average adult.</li>
+                        <li>Neutral: this label is like the RI-GDA but without the percentage of daily intake.</li>
+                    </ul>
+                    Per valutare quale tra queste etichette sia la più efficace abbiamo svolto una profonda analisi. Il grafico a fianco rappresenta sostanzialmente l'efficacia dell'etichetta, misurata con un parametro pesato, seguendo la formula:<br>
+                    <code> Δverdescuro*2 + Δverdechiaro*1 + Δgiallo*0 - Δarancio*1 - Δrosso*2</code><br> Il parametro "<code>Δverdescuro</code>" è stato ricavato dalla differenza tra la quantità di prodotti classificati verdescuro acquistati in fase 2
+                    e la quantità di prodotti classificati verdescuro acquistati in fase 1. Abbiamo preso come riferimento i colori dell'etichetta Nutri-score 5C per effettuare un confronto avendo la stessa classificazione del prodotto. Questo risultato
+                    è rappresentato dai grafici sottostanti, dove è possibile inoltre filtrare per tipo di etichetta, per fasce di anni e per fasce di salario. Da queste analisi risulta che l'etichetta Nutri-score 5C incentivi maggiormente l'acquisto
+                    di prodotti ritenuti più sani. Se osserviamo l'etichetta neutral (che è l'etichetta con meno indicazioni in assoluto) si nota che non premia il consumo di prodotti salutari.
 
 
 
                 </p>
             </div>
-            <div class="w3-col l6">
+            <div class="w3-col l4">
                 best label chart
 
                 <div id="bestLabelChart"></div>
@@ -227,7 +210,8 @@
         <div class="w3-container" style="padding: 20px 16px" id="about">
 
             <div class="w3-row-padding">
-                <div class="w3-col l3 m6"><br></div> <!-- empty column -->
+                <div class="w3-col l3 m6"><br></div>
+                <!-- empty column -->
                 <div class="w3-col l3 m6 w3-margin-bottom">
                     <div class="w3-card">
                         <img src="/img/gab.jpg" alt="Gabriele" style="width:100%">
@@ -237,8 +221,7 @@
                             <hr>
                             <p><i class="fa fa-id-card-alt w3-padding"></i>3982992</p>
                             <p><i class="fa fa-envelope w3-padding"></i>gabriele.guo@gmail.com</p>
-                            <p><i class=" fab fa-linkedin w3-padding"></i><a
-                                    href="https://www.linkedin.com/in/gabrieleguo/" target="_blank">Gabriele Guo</a>
+                            <p><i class=" fab fa-linkedin w3-padding"></i><a href="https://www.linkedin.com/in/gabrieleguo/" target="_blank">Gabriele Guo</a>
                             </p>
                         </div>
                     </div>

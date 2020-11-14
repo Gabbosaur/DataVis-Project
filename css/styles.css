@@ -1,4 +1,5 @@
 /* Part of W3css */
+
 body,
 h1,
 h2,
@@ -6,69 +7,85 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 body,
 html {
-  padding-top: 30px;
-  height: 100%;
-  line-height: 1.8;
+    padding-top: 30px;
+    height: 100%;
+    line-height: 1.8;
 }
 
 .w3-bar .w3-button {
-  padding: 16px;
+    padding: 16px;
 }
 
+
 /* My css */
+
 .label {
-  font-family: "Raleway", sans-serif;
-  font-size: 12px;
+    font-family: "Raleway", sans-serif;
+    font-size: 12px;
 }
 
 .subtitleprod {
-  font-family: "Raleway", sans-serif;
-  font-size: large;
-  text-align: left;
+    font-family: "Raleway", sans-serif;
+    font-size: large;
+    text-align: left;
 }
 
 .prodname {
-  font-family: "Raleway", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .textLarge {
-  margin: 0px 0px 0px 0px;
-  width: 100%;
-  height: auto;
-  text-align: center;
-  font-size: large;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: large;
 }
 
 #hBarchart {
-  text-align: center;
+    text-align: center;
 }
 
 #salaryhBarChart {
-  text-align: center;
+    text-align: center;
 }
 
 .tooltip {
-  position: absolute;
-  text-align: center;
-  max-width: 70px;
-  max-height: 30px;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  margin-top: -30px;
-  font: 10px sans-serif;
-  background: #009688;
-  color: white;
-  pointer-events: none;
-  opacity: 0;
+    position: absolute;
+    text-align: center;
+    max-width: 70px;
+    max-height: 30px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    margin-top: -30px;
+    font: 10px sans-serif;
+    background: #009688;
+    color: white;
+    pointer-events: none;
+    opacity: 0;
 }
+
+.legend {
+    font-size: medium;
+}
+
+@media screen and (max-width: 599px) {
+    #labelChart1 {
+        width: 1400px;
+    }
+    #labelChart2 {
+        width: 1400px;
+    }
+}
+
 
 /* .barstroke {
   pointer-events: all;
