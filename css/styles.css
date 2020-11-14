@@ -73,21 +73,14 @@ html {
     opacity: 0;
 }
 
-.legend {
-    font-size: medium;
+
+#labelChart1 {
+    font-size: small;
 }
 
-.vl {
-
-    height: 1px;
-    opacity: 0;
-  }
-
-/* @media screen and (max-width: 1200px) {
-    .vl {
-        display: inline;
-    }
-} */
+#labelChart2 {
+    font-size: small;
+}
 
 
 /* .barstroke {
