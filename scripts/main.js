@@ -553,7 +553,7 @@ function animateValue(id, start, end, duration) {
     var increment = end > start ? 1 : -1;
     var stepTime = Math.abs(Math.floor(duration / range));
     var obj = document.getElementById(id);
-    var timer = setInterval(function () {
+    var timer = setInterval(function() {
         current += increment;
         obj.innerHTML = current;
         if (current == end) {
@@ -567,25 +567,25 @@ function animateValue(id, start, end, duration) {
 // D3 code
 function createLeftBarChart() {
     var data = [{
-        "name": "60+",
-        "value": fasceEta[4],
-    },
-    {
-        "name": "50-59",
-        "value": fasceEta[3],
-    },
-    {
-        "name": "40-49",
-        "value": fasceEta[2],
-    },
-    {
-        "name": "30-39",
-        "value": fasceEta[1],
-    },
-    {
-        "name": "20-29",
-        "value": fasceEta[0],
-    }
+            "name": "60+",
+            "value": fasceEta[4],
+        },
+        {
+            "name": "50-59",
+            "value": fasceEta[3],
+        },
+        {
+            "name": "40-49",
+            "value": fasceEta[2],
+        },
+        {
+            "name": "30-39",
+            "value": fasceEta[1],
+        },
+        {
+            "name": "20-29",
+            "value": fasceEta[0],
+        }
     ];
 
     var totPartecipanti = fasceEta[0] + fasceEta[1] + fasceEta[2] + fasceEta[3] + fasceEta[4];
@@ -613,13 +613,13 @@ function createLeftBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function (d) {
+        .domain([0, d3.max(data, function(d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function (d) {
+        .domain(data.map(function(d) {
             return d.name;
         }));
 
@@ -645,7 +645,7 @@ function createLeftBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name);
         })
         .transition(t)
@@ -653,22 +653,22 @@ function createLeftBarChart() {
         .attr("fill", "#009688")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function (d) {
+        .attr("width", function(d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#009688")
-        .attr("x", function (d) {
+        .attr("x", function(d) {
             return x(d.value) + 3;
         })
-        .text(function (d) {
+        .text(function(d) {
             return d.value;
         });
 
@@ -679,25 +679,25 @@ function createLeftBarChart() {
 
 function createLeftSalaryBarChart() {
     var data = [{
-        "name": "8k+ ",
-        "value": fasceStipendio[4],
-    },
-    {
-        "name": "6k - 8k",
-        "value": fasceStipendio[3],
-    },
-    {
-        "name": "4k - 6k",
-        "value": fasceStipendio[2],
-    },
-    {
-        "name": "2k - 4k",
-        "value": fasceStipendio[1],
-    },
-    {
-        "name": "0 - 2k",
-        "value": fasceStipendio[0],
-    }
+            "name": "8k+ ",
+            "value": fasceStipendio[4],
+        },
+        {
+            "name": "6k - 8k",
+            "value": fasceStipendio[3],
+        },
+        {
+            "name": "4k - 6k",
+            "value": fasceStipendio[2],
+        },
+        {
+            "name": "2k - 4k",
+            "value": fasceStipendio[1],
+        },
+        {
+            "name": "0 - 2k",
+            "value": fasceStipendio[0],
+        }
     ];
 
     // Create left horizontal bar chart
@@ -720,13 +720,13 @@ function createLeftSalaryBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function (d) {
+        .domain([0, d3.max(data, function(d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function (d) {
+        .domain(data.map(function(d) {
             return d.name;
         }));
 
@@ -752,7 +752,7 @@ function createLeftSalaryBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name);
         })
         .transition(t)
@@ -760,22 +760,22 @@ function createLeftSalaryBarChart() {
         .attr("fill", "#009688")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function (d) {
+        .attr("width", function(d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#009688")
-        .attr("x", function (d) {
+        .attr("x", function(d) {
             return x(d.value) + 3;
         })
-        .text(function (d) {
+        .text(function(d) {
             return d.value;
         });
 
@@ -804,7 +804,7 @@ function createMidScatterplot() {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function (d) { return d.score - 3; }), d3.max(nutProducts, function (d) { return d.score + 3; })])
+        .domain([d3.min(nutProducts, function(d) { return d.score - 3; }), d3.max(nutProducts, function(d) { return d.score + 3; })])
         .range([0, width]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -812,7 +812,7 @@ function createMidScatterplot() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function (d) { return d.pricekgl; }), d3.max(nutProducts, function (d) { return d.pricekgl + 1.33; })])
+        .domain([d3.min(nutProducts, function(d) { return d.pricekgl; }), d3.max(nutProducts, function(d) { return d.pricekgl + 1.33; })])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -825,11 +825,11 @@ function createMidScatterplot() {
         .data(nutProducts)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return x(d.score); })
+        .attr("cx", function(d) { return x(d.score); })
         .attr("cy", 0)
         .attr("r", 0)
-        .attr("id", function (d) { return d.id; })
-        .style("fill", function (d) {
+        .attr("id", function(d) { return d.id; })
+        .style("fill", function(d) {
             if (d.nutriscore_letter.localeCompare("A") == 0) {
                 return "#008000";
             } else if (d.nutriscore_letter.localeCompare("B") == 0) {
@@ -840,7 +840,7 @@ function createMidScatterplot() {
                 return "#FFA500";
             } else return "#FF0000";
         })
-        .on("mouseover", function () {
+        .on("mouseover", function() {
             if (lastId != null) {
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
                 //console.log("id selezionato: ", event.target.id);
@@ -852,12 +852,12 @@ function createMidScatterplot() {
         })
         .transition()
         .ease(d3.easeBounce)
-        .delay(function (d, i) {
+        .delay(function(d, i) {
             return i * 10;
         })
         .duration(2000)
         .attr("r", () => 3)
-        .attr("cy", function (d) { return y(d.pricekgl); });
+        .attr("cy", function(d) { return y(d.pricekgl); });
 
 
     // Label Y-axis
@@ -977,24 +977,24 @@ function createLabelChart(asseX, label, idLabelChart) {
     svg.append("g").attr("id", idBar).selectAll("g")
         .data(data)
         .enter().append("g")
-        .style("fill", function (d, i) { return z(i); })
-        .attr("transform", function (d, i) { return "translate(" + x1(i) + ",0)"; })
+        .style("fill", function(d, i) { return z(i); })
+        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
         .selectAll("rect")
-        .data(function (d) { return d; })
+        .data(function(d) { return d; })
         .enter().append("rect")
         .attr("width", x1.bandwidth())
-        .attr("height", function (d) {
+        .attr("height", function(d) {
             return 0;
         })
-        .attr("x", function (d, i) { return x0(i); })
-        .attr("y", function (d) { return height / 2; })
-        .on("mouseover", function (d) {
+        .attr("x", function(d, i) { return x0(i); })
+        .attr("y", function(d) { return height / 2; })
+        .on("mouseover", function(d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
                 .style("opacity", 0.8);
         })
-        .on("mousemove", function (d) {
+        .on("mousemove", function(d) {
             div.transition() // tooltip box
                 .duration(50)
                 .style("opacity", 1);
@@ -1002,7 +1002,7 @@ function createLabelChart(asseX, label, idLabelChart) {
                 .style('left', (d3.event.pageX - 15) + 'px')
                 .style('top', (d3.event.pageY) + 'px');
         })
-        .on("mouseout", function (d) {
+        .on("mouseout", function(d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
@@ -1012,17 +1012,17 @@ function createLabelChart(asseX, label, idLabelChart) {
                 .style("opacity", 0);
         })
         .transition()
-        .delay(function (d, i) {
+        .delay(function(d, i) {
             return i * 100;
         })
         .duration(300)
-        .attr("height", function (d) {
+        .attr("height", function(d) {
             if (d == 0) {
                 return Math.abs(y(0) - y(d) + 1);
             } else
                 return Math.abs(y(0) - y(d));
         })
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return y(Math.max(0, d));
         });
 
@@ -1057,20 +1057,20 @@ function createLabelChart(asseX, label, idLabelChart) {
         .data(options.slice())
         .enter().append("g")
         .attr("class", "legend")
-        .attr("transform", function (d, i) { return "translate(-90," + i * 20 + ")"; });
+        .attr("transform", function(d, i) { return "translate(-90," + i * 20 + ")"; });
 
     legend.append("rect")
         .attr("x", width - 20)
         .attr("width", 15)
         .attr("height", 15)
-        .style("fill", function (d, i) { return z(i) });
+        .style("fill", function(d, i) { return z(i) });
 
     legend.append("text")
         .attr("x", width)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "start")
-        .text(function (d) { return d; });
+        .text(function(d) { return d; });
 }
 
 function createBestLabelChart(nutData) {
@@ -1134,8 +1134,8 @@ function createBestLabelChart(nutData) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // magari eliminare margin.top <--------
 
 
-    var maxHeight = d3.max(dataset, function (d) { return Math.abs(d) }) + 23;
-    var minHeight = d3.min(dataset, function (d) { return Math.abs(d) });
+    var maxHeight = d3.max(dataset, function(d) { return Math.abs(d) }) + 23;
+    var minHeight = d3.min(dataset, function(d) { return Math.abs(d) });
 
     //set y scale
     // var yScale = d3.scaleLinear()
@@ -1167,10 +1167,10 @@ function createBestLabelChart(nutData) {
         .enter()
         .append("rect");
 
-    bars.attr("x", function (d, i) {
-        return i * (width / dataset.length) + barPadding; //i*(width/dataset.length);
-    })
-        .attr("y", function (d) {
+    bars.attr("x", function(d, i) {
+            return i * (width / dataset.length) + barPadding; //i*(width/dataset.length);
+        })
+        .attr("y", function(d) {
             if (d < 0) {
                 return height;
             } else {
@@ -1178,19 +1178,19 @@ function createBestLabelChart(nutData) {
             }
 
         }) //for bottom to top
-        .attr("width", function (d) {
+        .attr("width", function(d) {
             return (width / dataset.length) - 2 * barPadding;
         })
-        .attr("height", function (d) {
+        .attr("height", function(d) {
             return height - yScale(Math.abs(d));
         })
-        .on("mouseover", function (d) {
+        .on("mouseover", function(d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
                 .style("opacity", 0.8);
         })
-        .on("mousemove", function (d) {
+        .on("mousemove", function(d) {
             div.transition() // tooltip box
                 .duration(50)
                 .style("opacity", 1);
@@ -1198,7 +1198,7 @@ function createBestLabelChart(nutData) {
                 .style('left', (d3.event.pageX - 15) + 'px')
                 .style('top', (d3.event.pageY) + 'px');
         })
-        .on("mouseout", function (d) {
+        .on("mouseout", function(d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
@@ -1207,7 +1207,7 @@ function createBestLabelChart(nutData) {
                 .duration(300)
                 .style("opacity", 0);
         });
-    bars.attr("fill", function (d) {
+    bars.attr("fill", function(d) {
         if (d >= 0) {
             return "green";
         } else {
@@ -1234,12 +1234,12 @@ function createBestLabelChart(nutData) {
 
 
 // Load CSV file
-d3.csv("data/dc.csv", function (error, csv) {
+d3.csv("data/dc.csv", function(error, csv) {
     if (error) {
         console.log(error); //Log the error.
         throw error;
     }
-    csv.forEach(function (d) {
+    csv.forEach(function(d) {
 
         // Convert numeric values to 'numbers'
         d.SUBJECT = +d.subject;

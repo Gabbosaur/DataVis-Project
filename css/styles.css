@@ -49,6 +49,14 @@ html {
     font-size: large;
 }
 
+.text {
+    padding-right: 50px;
+}
+
+#bestLabelChart {
+    padding-top: 100px;
+}
+
 #hBarchart {
     text-align: center;
 }
