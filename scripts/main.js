@@ -525,15 +525,15 @@ function filterSalary(nutData, etichetta) {
 function chooseAsseX(option) {
     asseX = option;
     if ((lchart1 != null) && (lchart2 != null)) { // se sono all'iterazione successiva al primo
-        createLabelChart1(asseX, lchart1);
-        createLabelChart2(asseX, lchart2);
+        createLabelChart(asseX, lchart1, "labelChart1");
+        createLabelChart(asseX, lchart2, "labelChart2");
     }
 }
 
 function chooseLChart1(label) {
     lchart1 = label;
     if (asseX != null) { // se sono all'iterazione successiva al primo
-        createLabelChart1(asseX, lchart1);
+        createLabelChart(asseX, lchart1, "labelChart1");
     } else {
 
     }
@@ -542,7 +542,7 @@ function chooseLChart1(label) {
 function chooseLChart2(label) {
     lchart2 = label;
     if (asseX != null) { // se sono all'iterazione successiva al primo
-        createLabelChart2(asseX, lchart2);
+        createLabelChart(asseX, lchart2, "labelChart2");
     }
 }
 
@@ -553,7 +553,7 @@ function animateValue(id, start, end, duration) {
     var increment = end > start ? 1 : -1;
     var stepTime = Math.abs(Math.floor(duration / range));
     var obj = document.getElementById(id);
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         current += increment;
         obj.innerHTML = current;
         if (current == end) {
@@ -567,25 +567,25 @@ function animateValue(id, start, end, duration) {
 // D3 code
 function createLeftBarChart() {
     var data = [{
-            "name": "60+",
-            "value": fasceEta[4],
-        },
-        {
-            "name": "50-59",
-            "value": fasceEta[3],
-        },
-        {
-            "name": "40-49",
-            "value": fasceEta[2],
-        },
-        {
-            "name": "30-39",
-            "value": fasceEta[1],
-        },
-        {
-            "name": "20-29",
-            "value": fasceEta[0],
-        }
+        "name": "60+",
+        "value": fasceEta[4],
+    },
+    {
+        "name": "50-59",
+        "value": fasceEta[3],
+    },
+    {
+        "name": "40-49",
+        "value": fasceEta[2],
+    },
+    {
+        "name": "30-39",
+        "value": fasceEta[1],
+    },
+    {
+        "name": "20-29",
+        "value": fasceEta[0],
+    }
     ];
 
     var totPartecipanti = fasceEta[0] + fasceEta[1] + fasceEta[2] + fasceEta[3] + fasceEta[4];
@@ -613,13 +613,13 @@ function createLeftBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function(d) {
+        .domain([0, d3.max(data, function (d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function(d) {
+        .domain(data.map(function (d) {
             return d.name;
         }));
 
@@ -645,7 +645,7 @@ function createLeftBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name);
         })
         .transition(t)
@@ -653,22 +653,22 @@ function createLeftBarChart() {
         .attr("fill", "#009688")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function(d) {
+        .attr("width", function (d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#009688")
-        .attr("x", function(d) {
+        .attr("x", function (d) {
             return x(d.value) + 3;
         })
-        .text(function(d) {
+        .text(function (d) {
             return d.value;
         });
 
@@ -679,25 +679,25 @@ function createLeftBarChart() {
 
 function createLeftSalaryBarChart() {
     var data = [{
-            "name": "8k+ ",
-            "value": fasceStipendio[4],
-        },
-        {
-            "name": "6k - 8k",
-            "value": fasceStipendio[3],
-        },
-        {
-            "name": "4k - 6k",
-            "value": fasceStipendio[2],
-        },
-        {
-            "name": "2k - 4k",
-            "value": fasceStipendio[1],
-        },
-        {
-            "name": "0 - 2k",
-            "value": fasceStipendio[0],
-        }
+        "name": "8k+ ",
+        "value": fasceStipendio[4],
+    },
+    {
+        "name": "6k - 8k",
+        "value": fasceStipendio[3],
+    },
+    {
+        "name": "4k - 6k",
+        "value": fasceStipendio[2],
+    },
+    {
+        "name": "2k - 4k",
+        "value": fasceStipendio[1],
+    },
+    {
+        "name": "0 - 2k",
+        "value": fasceStipendio[0],
+    }
     ];
 
     // Create left horizontal bar chart
@@ -720,13 +720,13 @@ function createLeftSalaryBarChart() {
 
     var x = d3.scaleLinear()
         .range([0, width])
-        .domain([0, d3.max(data, function(d) {
+        .domain([0, d3.max(data, function (d) {
             return d.value;
         })]);
 
     var y = d3.scaleBand()
         .range([height, 0], .1)
-        .domain(data.map(function(d) {
+        .domain(data.map(function (d) {
             return d.name;
         }));
 
@@ -752,7 +752,7 @@ function createLeftSalaryBarChart() {
 
     //append rects
     bars.append("rect")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name);
         })
         .transition(t)
@@ -760,22 +760,22 @@ function createLeftSalaryBarChart() {
         .attr("fill", "#009688")
         .attr("height", y.bandwidth() - barPadding)
         .attr("x", 0)
-        .attr("width", function(d) {
+        .attr("width", function (d) {
             return x(d.value);
         });
 
     //add a value label to the right of each bar
     bars.append("text")
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.name) + y.bandwidth() / 2 + 4;
         })
         .transition(t)
         .attr("class", "label")
         .attr("fill", "#009688")
-        .attr("x", function(d) {
+        .attr("x", function (d) {
             return x(d.value) + 3;
         })
-        .text(function(d) {
+        .text(function (d) {
             return d.value;
         });
 
@@ -783,7 +783,7 @@ function createLeftSalaryBarChart() {
 
 }
 
-function createMidScatterplot2() {
+function createMidScatterplot() {
 
     var nutProducts = calculateNumberOfProducts(nutData);
 
@@ -804,7 +804,7 @@ function createMidScatterplot2() {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.score - 3; }), d3.max(nutProducts, function(d) { return d.score + 3; })])
+        .domain([d3.min(nutProducts, function (d) { return d.score - 3; }), d3.max(nutProducts, function (d) { return d.score + 3; })])
         .range([0, width]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -812,7 +812,7 @@ function createMidScatterplot2() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([d3.min(nutProducts, function(d) { return d.pricekgl; }), d3.max(nutProducts, function(d) { return d.pricekgl + 1.33; })])
+        .domain([d3.min(nutProducts, function (d) { return d.pricekgl; }), d3.max(nutProducts, function (d) { return d.pricekgl + 1.33; })])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -825,11 +825,11 @@ function createMidScatterplot2() {
         .data(nutProducts)
         .enter()
         .append("circle")
-        .attr("cx", function(d) { return x(d.score); })
-        .attr("cy", function(d) { return y(d.pricekgl); })
-        .attr("r", 3)
-        .attr("id", function(d) { return d.id; })
-        .style("fill", function(d) {
+        .attr("cx", function (d) { return x(d.score); })
+        .attr("cy", 0)
+        .attr("r", 0)
+        .attr("id", function (d) { return d.id; })
+        .style("fill", function (d) {
             if (d.nutriscore_letter.localeCompare("A") == 0) {
                 return "#008000";
             } else if (d.nutriscore_letter.localeCompare("B") == 0) {
@@ -840,7 +840,7 @@ function createMidScatterplot2() {
                 return "#FFA500";
             } else return "#FF0000";
         })
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             if (lastId != null) {
                 d3.select('[id=' + '\"' + lastId + '\"' + ']').attr("r", 3);
                 //console.log("id selezionato: ", event.target.id);
@@ -850,6 +850,14 @@ function createMidScatterplot2() {
             loadInfo(nutProducts, event.target.id);
             lastId = event.target.id;
         })
+        .transition()
+        .ease(d3.easeBounce)
+        .delay(function (d, i) {
+            return i * 10;
+        })
+        .duration(2000)
+        .attr("r", () => 3)
+        .attr("cy", function (d) { return y(d.pricekgl); });
 
 
     // Label Y-axis
@@ -868,9 +876,12 @@ function createMidScatterplot2() {
         .text('Score FSA');
 }
 
-function createLabelChart1(asseX, label) {
+
+function createLabelChart(asseX, label, idLabelChart) {
     var data;
     var labelX;
+    var idSVG;
+    var idBar;
     if (asseX.localeCompare('anni') == 0) {
         data = filterAge(nutData, label);
         labelX = "Age";
@@ -884,251 +895,24 @@ function createLabelChart1(asseX, label) {
     var n = 5, // number of groups
         m = 5; // number of bars per group
 
-
-    var svg = d3.select("#graph1lc");
-    svg.remove();
-    /*
-    svg = d3.select("#bars");
-    svg.selectAll("rect").remove();
-    */
-
-    //console.log(data);
-
-    var margin = { top: 20, right: 30, bottom: 50, left: 50 },
-        width = 550 - margin.left - margin.right,
-        height = 550 - margin.top - margin.bottom;
-
-    var div = d3.select("#labelChart1").append("div")
-        .attr("class", "tooltip");
-
-    // varia l'asse in base al dataset che gli passiamo
-    // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
-
-
-
-    // fissiamo il valore massimo dell'asse y per favorire il confronto visivo
-    if (asseX.localeCompare('anni') == 0) {
-        var y0 = 35;
-    } else if (asseX.localeCompare('stipendio') == 0) { //  ELSE IF asseX == 'stipendio'
-        var y0 = 45;
-    }
-
-    var y = d3.scaleLinear()
-        .domain([-y0, y0])
-        .range([height, 0]);
-
-    //un gruppo
-    var x0 = d3.scaleBand()
-        .domain(d3.range(n))
-        .range([0, width]);
-    //m gruppi
-    var x1 = d3.scaleBand()
-        .domain(d3.range(m))
-        .range([0, x0.bandwidth()])
-        .paddingOuter(1);
-
-    var z = d3.scaleOrdinal()
-        .range(["#008000", "#7CFC00", "#FFF500", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
-
-    // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
-
-    // var xAxis = d3.axisBottom(x0).tickSize(7).tickSizeOuter(0);
-    var yAxis = d3.axisLeft(y);
-
-    if (asseX.localeCompare("anni") == 0) {
-        var xScaleLabels = d3.scalePoint()
-            .domain(fEta)
-            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+    if (idLabelChart.localeCompare("labelChart1") == 0) {
+        idSVG = "labelChart1svg";
     } else {
-        var xScaleLabels = d3.scalePoint()
-            .domain(fStipendio)
-            .rangeRound([width / 10, width - (width / 10)]); // diviso 10 perché abbiamo 5 gruppi e vogliamo posizionarli a metà di ogni gruppo (numero diviso 5 e poi diviso 2)
+        idSVG = "labelChart2svg";
     }
-
-
-    var axisTop2 = d3
-        .axisBottom()
-        .scale(xScaleLabels)
-        .ticks(data.length)
-        .tickSize(7)
-        .tickSizeOuter(0);
-
-
-    svg = d3.select("#labelChart1")
-        .append("svg")
-        .attr("viewBox", `0 0 600 600`)
-        // .attr("width", "600")
-        // .attr("height", "600")
-        .attr("id", "graph1lc")
-        // var svg = d3.select("#labelChart1").append("svg")
-        //     .attr("width", width + margin.left + margin.right)
-        //     .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-
-    svg.append("g").attr("id", "bars").selectAll("g")
-        .data(data)
-        .enter().append("g")
-        .style("fill", function(d, i) { return z(i); })
-        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
-        .selectAll("rect")
-        .data(function(d) { return d; })
-        .enter().append("rect")
-        .attr("width", x1.bandwidth())
-        .attr("height", function(d) {
-            //console.log(y(d));
-            // console.log(data);
-            return 0; // punto iniziale per transizione
-        })
-        .attr("x", function(d, i) { return x0(i); })
-        .attr("y", function(d) { return height / 2; }) // per transizione
-        // .attr("class", "barstroke")
-        .on("mouseover", function(d) {
-            d3.select(this) // barra
-                .transition()
-                .duration(300)
-                .style("opacity", 0.8);
-        })
-        .on("mousemove", function(d) {
-            div.transition() // tooltip box
-                .duration(50)
-                .style("opacity", 1);
-            div.html(d)
-                .style('left', (d3.event.pageX - 15) + 'px')
-                .style('top', (d3.event.pageY) + 'px');
-        })
-        .on("mouseout", function(d) {
-            d3.select(this) // barra
-                .transition()
-                .duration(300)
-                .style("opacity", 1);
-            div.transition() // tooltip box
-                .duration(300)
-                .style("opacity", 0)
-        })
-        .transition()
-        .delay(function(d, i) {
-            return i * 100;
-        })
-        .duration(300)
-        .attr("height", function(d) {
-            if (d == 0) {
-                return Math.abs(y(0) - y(d) + 1);
-            } else
-                return Math.abs(y(0) - y(d));
-        })
-        .attr("y", function(d) { return y(Math.max(0, d)); });
-
-
-    // svg.selectAll("rect")
-    //     .transition()
-    //     .duration(300)
-    //     .attr("height", function (d) {
-    //         if (d == 0) {
-    //             return Math.abs(y(0) - y(d) + 1);
-    //         } else
-    //             return Math.abs(y(0) - y(d));
-    //     })
-    //     .attr("y", function (d) { return y(Math.max(0, d)); });
-
-    // axis
-    // svg.append("g")
-    //     .attr("class", "x axis")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(xAxis)
-    //     .call(g => g.select(".domain").remove());
-
-    svg.append("g")
-        .call(axisTop2)
-        .attr("transform", "translate(0," + height + ")")
-        .call(g => g.select(".domain").remove()); //exit delle colonne del grafico
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-
-    // Label Y
-    svg.append("text").text("Delta purchases Δ")
-        .attr("x", 0 - height / 2)
-        .attr("y", 0 - margin.left)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .attr("transform", "rotate(-90)");
-
-    // Label X
-    svg.append("text").text(labelX)
-        .attr("x", width / 2)
-        .attr("y", height + margin.bottom)
-        .style("text-anchor", "middle");
-
-
-    // FINIRE QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    // var color = d3.scaleOrdinal()
-    //     .domain()
-    //     .range();
-
-    var options = ["really healthy", "healthy", "neutral", "unhealthy", "really unhealthy"];
-
-    // legend
-    var legend = svg.selectAll(".legend")
-        .data(options.slice())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(-90," + i * 20 + ")"; });
-
-    legend.append("rect")
-        .attr("x", width - 20)
-        .attr("width", 15)
-        .attr("height", 15)
-        .style("fill", function(d, i) { return z(i) });
-
-    legend.append("text")
-        .attr("x", width)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "start")
-        .text(function(d) { return d; });
-
-}
-
-function createLabelChart2(asseX, label) {
-    var data;
-    var labelX;
-    if (asseX.localeCompare('anni') == 0) {
-        data = filterAge(nutData, label);
-        labelX = "Age";
-    } else if (asseX.localeCompare('stipendio') == 0) { //  ELSE IF asseX == 'stipendio'
-        data = filterSalary(nutData, label);
-        labelX = "Salary";
-    }
-
-    // D3 code
-
-    var n = 5, // number of groups
-        m = 5; // number of bars per group
-
-
-    var svg = d3.select("#labelChart2svg");
+    var svg = d3.select("#" + idSVG); // PARAMETRO <---
     svg.remove();
-    /*
-    svg = d3.select("#bars");
-    svg.selectAll("rect").remove();
-    */
 
-    //console.log(data);
 
     var margin = { top: 20, right: 30, bottom: 50, left: 50 },
         width = 550 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom;
 
-    var div = d3.select("#labelChart2").append("div")
+    var div = d3.select("#" + idLabelChart).append("div")
         .attr("class", "tooltip");
 
-    // varia l'asse in base al dataset che gli passiamo
-    // var y0 = Math.max(Math.abs(d3.min(data, function (d) { return d3.min(d); })), Math.abs(d3.max(data, function (d) { return d3.max(d); })));
 
-    // fissiamo il valore massimo dell'asse y per favorire il confronto visivo
+    // fissiamo il valore massimo dell'asse y per favorire il confronto visivo, altrimenti i due grafici avrebbero scale differenti
     if (asseX.localeCompare('anni') == 0) {
         var y0 = 35;
     } else if (asseX.localeCompare('stipendio') == 0) { //  ELSE IF asseX == 'stipendio'
@@ -1154,9 +938,7 @@ function createLabelChart2(asseX, label) {
     var z = d3.scaleOrdinal()
         .range(["#008000", "#7CFC00", "#FFF500", "#FFA500", "#FF0000"]); // cambiare colori in meno saturi
 
-    // FIXARE FILTRO AGE SALARY PERCHE' BISOGNA CLICCARE SU SALARY E POI SU AGE PER FARLO FUNZIONARE I LABEL
 
-    // var xAxis = d3.axisBottom(x0).tickSize(7).tickSizeOuter(0);
     var yAxis = d3.axisLeft(y);
 
     if (asseX.localeCompare("anni") == 0) {
@@ -1179,39 +961,40 @@ function createLabelChart2(asseX, label) {
         .tickSizeOuter(0);
 
 
-    svg = d3.select("#labelChart2")
+    svg = d3.select("#" + idLabelChart)
         .append("svg")
         .attr("viewBox", `0 0 600 600`)
-        // .attr("width", "600")
-        // .attr("height", "600")
-        .attr("id", "labelChart2svg")
+        .attr("id", idSVG)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    svg.append("g").attr("id", "bars2").selectAll("g")
+    if (idLabelChart.localeCompare("labelChart1") == 0) {
+        idBar = "bars1";
+    } else {
+        idBar = "bars2";
+    }
+
+    svg.append("g").attr("id", idBar).selectAll("g")
         .data(data)
         .enter().append("g")
-        .style("fill", function(d, i) { return z(i); })
-        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+        .style("fill", function (d, i) { return z(i); })
+        .attr("transform", function (d, i) { return "translate(" + x1(i) + ",0)"; })
         .selectAll("rect")
-        .data(function(d) { return d; })
+        .data(function (d) { return d; })
         .enter().append("rect")
         .attr("width", x1.bandwidth())
-        .attr("height", function(d) {
-            //console.log(y(d));
-            // console.log(data);
+        .attr("height", function (d) {
             return 0;
         })
-        .attr("x", function(d, i) { return x0(i); })
-        .attr("y", function(d) { return height / 2; })
-        // .attr("class", "barstroke")
-        .on("mouseover", function(d) {
+        .attr("x", function (d, i) { return x0(i); })
+        .attr("y", function (d) { return height / 2; })
+        .on("mouseover", function (d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
                 .style("opacity", 0.8);
         })
-        .on("mousemove", function(d) {
+        .on("mousemove", function (d) {
             div.transition() // tooltip box
                 .duration(50)
                 .style("opacity", 1);
@@ -1219,7 +1002,7 @@ function createLabelChart2(asseX, label) {
                 .style('left', (d3.event.pageX - 15) + 'px')
                 .style('top', (d3.event.pageY) + 'px');
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
@@ -1229,26 +1012,20 @@ function createLabelChart2(asseX, label) {
                 .style("opacity", 0);
         })
         .transition()
-        .delay(function(d, i) {
+        .delay(function (d, i) {
             return i * 100;
         })
         .duration(300)
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             if (d == 0) {
                 return Math.abs(y(0) - y(d) + 1);
             } else
                 return Math.abs(y(0) - y(d));
         })
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(Math.max(0, d));
         });
 
-    // axis
-    // svg.append("g")
-    //     .attr("class", "x axis")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(xAxis)
-    //     .call(g => g.select(".domain").remove());
 
     svg.append("g")
         .call(axisTop2)
@@ -1280,20 +1057,20 @@ function createLabelChart2(asseX, label) {
         .data(options.slice())
         .enter().append("g")
         .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(-90," + i * 20 + ")"; });
+        .attr("transform", function (d, i) { return "translate(-90," + i * 20 + ")"; });
 
     legend.append("rect")
         .attr("x", width - 20)
         .attr("width", 15)
         .attr("height", 15)
-        .style("fill", function(d, i) { return z(i) });
+        .style("fill", function (d, i) { return z(i) });
 
     legend.append("text")
         .attr("x", width)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "start")
-        .text(function(d) { return d; });
+        .text(function (d) { return d; });
 }
 
 function createBestLabelChart(nutData) {
@@ -1357,8 +1134,8 @@ function createBestLabelChart(nutData) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // magari eliminare margin.top <--------
 
 
-    var maxHeight = d3.max(dataset, function(d) { return Math.abs(d) }) + 23;
-    var minHeight = d3.min(dataset, function(d) { return Math.abs(d) });
+    var maxHeight = d3.max(dataset, function (d) { return Math.abs(d) }) + 23;
+    var minHeight = d3.min(dataset, function (d) { return Math.abs(d) });
 
     //set y scale
     // var yScale = d3.scaleLinear()
@@ -1390,10 +1167,10 @@ function createBestLabelChart(nutData) {
         .enter()
         .append("rect");
 
-    bars.attr("x", function(d, i) {
-            return i * (width / dataset.length) + barPadding; //i*(width/dataset.length);
-        })
-        .attr("y", function(d) {
+    bars.attr("x", function (d, i) {
+        return i * (width / dataset.length) + barPadding; //i*(width/dataset.length);
+    })
+        .attr("y", function (d) {
             if (d < 0) {
                 return height;
             } else {
@@ -1401,19 +1178,19 @@ function createBestLabelChart(nutData) {
             }
 
         }) //for bottom to top
-        .attr("width", function(d) {
+        .attr("width", function (d) {
             return (width / dataset.length) - 2 * barPadding;
         })
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             return height - yScale(Math.abs(d));
         })
-        .on("mouseover", function(d) {
+        .on("mouseover", function (d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
                 .style("opacity", 0.8);
         })
-        .on("mousemove", function(d) {
+        .on("mousemove", function (d) {
             div.transition() // tooltip box
                 .duration(50)
                 .style("opacity", 1);
@@ -1421,7 +1198,7 @@ function createBestLabelChart(nutData) {
                 .style('left', (d3.event.pageX - 15) + 'px')
                 .style('top', (d3.event.pageY) + 'px');
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             d3.select(this) // barra
                 .transition()
                 .duration(300)
@@ -1430,7 +1207,7 @@ function createBestLabelChart(nutData) {
                 .duration(300)
                 .style("opacity", 0);
         });
-    bars.attr("fill", function(d) {
+    bars.attr("fill", function (d) {
         if (d >= 0) {
             return "green";
         } else {
@@ -1457,12 +1234,12 @@ function createBestLabelChart(nutData) {
 
 
 // Load CSV file
-d3.csv("data/dc.csv", function(error, csv) {
+d3.csv("data/dc.csv", function (error, csv) {
     if (error) {
         console.log(error); //Log the error.
         throw error;
     }
-    csv.forEach(function(d) {
+    csv.forEach(function (d) {
 
         // Convert numeric values to 'numbers'
         d.SUBJECT = +d.subject;
@@ -1539,12 +1316,12 @@ d3.csv("data/dc.csv", function(error, csv) {
     // Store csv data in a global variable
     nutData = csv;
 
-    createLabelChart1('anni', '5C');
-    createLabelChart2('anni', 'TL');
+    createLabelChart('anni', '5C', "labelChart1");
+    createLabelChart('anni', 'TL', "labelChart2");
     calculateNumberOfProducts(nutData);
     createBestLabelChart(nutData);
     createLeftBarChart();
     createLeftSalaryBarChart();
-    createMidScatterplot2();
+    createMidScatterplot();
     caddyFilterBought(nutData);
 });

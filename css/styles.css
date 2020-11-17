@@ -73,7 +73,6 @@ html {
     opacity: 0;
 }
 
-
 #labelChart1 {
     font-size: small;
 }
@@ -81,13 +80,3 @@ html {
 #labelChart2 {
     font-size: small;
 }
-
-
-/* .barstroke {
-  pointer-events: all;
-}
-
-.barstroke:hover {
-  stroke: #838383;
-  stroke-width: 2;
-} */
