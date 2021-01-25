@@ -10,7 +10,7 @@ var caddy2 = [];
 var fEta = ["20-29", "30-39", "40-49", "50-59", "60+"];
 var fStipendio = ["0-2000", "2000-4000", "4000-6000", "6000-8000", "8000+"];
 
-
+var controlloDati = [false, false, false, false, false]; //gruppo 1, gruppo 2, gruppo 3, gruppo 4, gruppo 5
 
 
 var asseX = "anni";
@@ -200,68 +200,96 @@ function filterAge(nutData, etichetta) {
     var C = [0, 0, 0, 0, 0];
     var D = [0, 0, 0, 0, 0];
     var E = [0, 0, 0, 0, 0];
+
+    controlloDati = [false, false, false, false, false];
+
     for (var i = 0; i < caddy1.length; i++) {
         if (caddy1[i].TREATMENT.localeCompare(etichetta) == 0) {
             if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if (caddy1[i].AGE < 30) {
                     A[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy1[i].AGE < 40) {
                     A[1] -= caddy1[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy1[i].AGE < 50) {
                     A[2] -= caddy1[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy1[i].AGE < 60) {
                     A[3] -= caddy1[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     A[4] -= caddy1[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
 
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("B") == 0) {
                 if (caddy1[i].AGE < 30) {
                     B[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy1[i].AGE < 40) {
                     B[1] -= caddy1[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy1[i].AGE < 50) {
                     B[2] -= caddy1[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy1[i].AGE < 60) {
                     B[3] -= caddy1[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     B[4] -= caddy1[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("C") == 0) {
                 if (caddy1[i].AGE < 30) {
                     C[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy1[i].AGE < 40) {
                     C[1] -= caddy1[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy1[i].AGE < 50) {
                     C[2] -= caddy1[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy1[i].AGE < 60) {
                     C[3] -= caddy1[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     C[4] -= caddy1[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("D") == 0) {
                 if (caddy1[i].AGE < 30) {
                     D[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy1[i].AGE < 40) {
                     D[1] -= caddy1[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy1[i].AGE < 50) {
                     D[2] -= caddy1[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy1[i].AGE < 60) {
                     D[3] -= caddy1[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     D[4] -= caddy1[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("E") == 0) {
                 if (caddy1[i].AGE < 30) {
                     E[0] -= caddy1[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy1[i].AGE < 40) {
                     E[1] -= caddy1[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy1[i].AGE < 50) {
                     E[2] -= caddy1[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy1[i].AGE < 60) {
                     E[3] -= caddy1[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     E[4] -= caddy1[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             }
         }
@@ -272,63 +300,88 @@ function filterAge(nutData, etichetta) {
             if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if (caddy2[i].AGE < 30) {
                     A[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy2[i].AGE < 40) {
                     A[1] += caddy2[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy2[i].AGE < 50) {
                     A[2] += caddy2[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy2[i].AGE < 60) {
                     A[3] += caddy2[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     A[4] += caddy2[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
 
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("B") == 0) {
                 if (caddy2[i].AGE < 30) {
                     B[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy2[i].AGE < 40) {
                     B[1] += caddy2[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy2[i].AGE < 50) {
                     B[2] += caddy2[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy2[i].AGE < 60) {
                     B[3] += caddy2[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     B[4] += caddy2[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("C") == 0) {
                 if (caddy2[i].AGE < 30) {
                     C[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy2[i].AGE < 40) {
                     C[1] += caddy2[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy2[i].AGE < 50) {
                     C[2] += caddy2[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy2[i].AGE < 60) {
                     C[3] += caddy2[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     C[4] += caddy2[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("D") == 0) {
                 if (caddy2[i].AGE < 30) {
                     D[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy2[i].AGE < 40) {
                     D[1] += caddy2[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy2[i].AGE < 50) {
                     D[2] += caddy2[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy2[i].AGE < 60) {
                     D[3] += caddy2[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     D[4] += caddy2[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("E") == 0) {
                 if (caddy2[i].AGE < 30) {
                     E[0] += caddy2[i].QUANTITY; // 20+ perché abbiamo controllato che non esistono persone di meno di 20 anni
+                    controlloDati[0] = true;
                 } else if (caddy2[i].AGE < 40) {
                     E[1] += caddy2[i].QUANTITY; //30+
+                    controlloDati[1] = true;
                 } else if (caddy2[i].AGE < 50) {
                     E[2] += caddy2[i].QUANTITY; // 40+
+                    controlloDati[2] = true;
                 } else if (caddy2[i].AGE < 60) {
                     E[3] += caddy2[i].QUANTITY; // 50+
+                    controlloDati[3] = true;
                 } else {
                     E[4] += caddy2[i].QUANTITY; // 60+
+                    controlloDati[4] = true;
                 }
             }
         }
@@ -376,69 +429,95 @@ function filterSalary(nutData, etichetta) {
     var C = [0, 0, 0, 0, 0];
     var D = [0, 0, 0, 0, 0];
     var E = [0, 0, 0, 0, 0];
+    controlloDati = [false, false, false, false, false];
     for (var i = 0; i < caddy1.length; i++) {
 
         if (caddy1[i].TREATMENT.localeCompare(etichetta) == 0) {
             if (caddy1[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     A[0] -= caddy1[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("2000_3000") == 0) || (caddy1[i].INCOME.localeCompare("3000_4000") == 0)) {
                     A[1] -= caddy1[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("4000_5000") == 0) || (caddy1[i].INCOME.localeCompare("5000_6000") == 0)) {
                     A[2] -= caddy1[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0)) {
                     A[3] -= caddy1[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     A[4] -= caddy1[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
 
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("B") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     B[0] -= caddy1[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("2000_3000") == 0) || (caddy1[i].INCOME.localeCompare("3000_4000") == 0)) {
                     B[1] -= caddy1[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("4000_5000") == 0) || (caddy1[i].INCOME.localeCompare("5000_6000") == 0)) {
                     B[2] -= caddy1[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0)) {
                     B[3] -= caddy1[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     B[4] -= caddy1[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("C") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     C[0] -= caddy1[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("2000_3000") == 0) || (caddy1[i].INCOME.localeCompare("3000_4000") == 0)) {
                     C[1] -= caddy1[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("4000_5000") == 0) || (caddy1[i].INCOME.localeCompare("5000_6000") == 0)) {
                     C[2] -= caddy1[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0)) {
                     C[3] -= caddy1[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     C[4] -= caddy1[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("D") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     D[0] -= caddy1[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("2000_3000") == 0) || (caddy1[i].INCOME.localeCompare("3000_4000") == 0)) {
                     D[1] -= caddy1[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("4000_5000") == 0) || (caddy1[i].INCOME.localeCompare("5000_6000") == 0)) {
                     D[2] -= caddy1[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0)) {
                     D[3] -= caddy1[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     D[4] -= caddy1[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy1[i].NUTRISCORE[1].localeCompare("E") == 0) {
                 if ((caddy1[i].INCOME.localeCompare("0_1000") == 0) || (caddy1[i].INCOME.localeCompare("1000_2000") == 0)) {
                     E[0] -= caddy1[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("2000_3000") == 0) || (caddy1[i].INCOME.localeCompare("3000_4000") == 0)) {
                     E[1] -= caddy1[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("4000_5000") == 0) || (caddy1[i].INCOME.localeCompare("5000_6000") == 0)) {
                     E[2] -= caddy1[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy1[i].INCOME.localeCompare("6000_7000") == 0) || (caddy1[i].INCOME.localeCompare("7000_8000") == 0)) {
                     E[3] -= caddy1[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     E[4] -= caddy1[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             }
         }
@@ -449,63 +528,88 @@ function filterSalary(nutData, etichetta) {
             if (caddy2[i].NUTRISCORE[1].localeCompare("A") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     A[0] += caddy2[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("2000_3000") == 0) || (caddy2[i].INCOME.localeCompare("3000_4000") == 0)) {
                     A[1] += caddy2[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("4000_5000") == 0) || (caddy2[i].INCOME.localeCompare("5000_6000") == 0)) {
                     A[2] += caddy2[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("6000_7000") == 0) || (caddy2[i].INCOME.localeCompare("7000_8000") == 0)) {
                     A[3] += caddy2[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     A[4] += caddy2[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
 
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("B") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     B[0] += caddy2[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("2000_3000") == 0) || (caddy2[i].INCOME.localeCompare("3000_4000") == 0)) {
                     B[1] += caddy2[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("4000_5000") == 0) || (caddy2[i].INCOME.localeCompare("5000_6000") == 0)) {
                     B[2] += caddy2[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("6000_7000") == 0) || (caddy2[i].INCOME.localeCompare("7000_8000") == 0)) {
                     B[3] += caddy2[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     B[4] += caddy2[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("C") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     C[0] += caddy2[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("2000_3000") == 0) || (caddy2[i].INCOME.localeCompare("3000_4000") == 0)) {
                     C[1] += caddy2[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("4000_5000") == 0) || (caddy2[i].INCOME.localeCompare("5000_6000") == 0)) {
                     C[2] += caddy2[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("6000_7000") == 0) || (caddy2[i].INCOME.localeCompare("7000_8000") == 0)) {
                     C[3] += caddy2[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     C[4] += caddy2[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("D") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     D[0] += caddy2[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("2000_3000") == 0) || (caddy2[i].INCOME.localeCompare("3000_4000") == 0)) {
                     D[1] += caddy2[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("4000_5000") == 0) || (caddy2[i].INCOME.localeCompare("5000_6000") == 0)) {
                     D[2] += caddy2[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("6000_7000") == 0) || (caddy2[i].INCOME.localeCompare("7000_8000") == 0)) {
                     D[3] += caddy2[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     D[4] += caddy2[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             } else if (caddy2[i].NUTRISCORE[1].localeCompare("E") == 0) {
                 if ((caddy2[i].INCOME.localeCompare("0_1000") == 0) || (caddy2[i].INCOME.localeCompare("1000_2000") == 0)) {
                     E[0] += caddy2[i].QUANTITY;
+                    controlloDati[0] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("2000_3000") == 0) || (caddy2[i].INCOME.localeCompare("3000_4000") == 0)) {
                     E[1] += caddy2[i].QUANTITY;
+                    controlloDati[1] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("4000_5000") == 0) || (caddy2[i].INCOME.localeCompare("5000_6000") == 0)) {
                     E[2] += caddy2[i].QUANTITY;
+                    controlloDati[2] = true;
                 } else if ((caddy2[i].INCOME.localeCompare("6000_7000") == 0) || (caddy2[i].INCOME.localeCompare("7000_8000") == 0)) {
                     E[3] += caddy2[i].QUANTITY;
+                    controlloDati[3] = true;
                 } else {
                     E[4] += caddy2[i].QUANTITY; // 8k+
+                    controlloDati[4] = true;
                 }
             }
         }
@@ -970,9 +1074,12 @@ function createLabelChart(asseX, label, idLabelChart) {
 
     if (idLabelChart.localeCompare("labelChart1") == 0) {
         idBar = "bars1";
+        var id = 0;
     } else {
         idBar = "bars2";
+        var id = 50;
     }
+
 
     svg.append("g").attr("id", idBar).selectAll("g")
         .data(data)
@@ -982,6 +1089,7 @@ function createLabelChart(asseX, label, idLabelChart) {
         .selectAll("rect")
         .data(function(d) { return d; })
         .enter().append("rect")
+        .attr("id", function(d, i) { id = id + 1; return id; })
         .attr("width", x1.bandwidth())
         .attr("height", function(d) {
             return 0;
@@ -1022,6 +1130,25 @@ function createLabelChart(asseX, label, idLabelChart) {
             } else
                 return Math.abs(y(0) - y(d));
         })
+        .style("fill", function(d) {
+            if (d == 0) {
+
+                if (idBar.localeCompare("bars1") == 0) {
+                    var idComodo = 0;
+                } else {
+                    var idComodo = 50;
+                }
+
+                for (j = 0; j < 5; j++) {
+                    if (controlloDati[j] == false) {
+                        if (this.id == (idComodo + 1 + j) || this.id == (idComodo + 6 + j) || this.id == (idComodo + 11 + j) || this.id == (idComodo + 16 + j) || this.id == (idComodo + 21 + j))
+                            return "#000000";
+                    }
+                }
+
+            } else
+                return;
+        })
         .attr("y", function(d) {
             return y(Math.max(0, d));
         });
@@ -1034,6 +1161,9 @@ function createLabelChart(asseX, label, idLabelChart) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+
+
 
     // Label Y
     svg.append("text").text("Delta purchases Δ")
@@ -1071,7 +1201,13 @@ function createLabelChart(asseX, label, idLabelChart) {
         .attr("dy", ".35em")
         .style("text-anchor", "start")
         .text(function(d) { return d; });
+
+
+
+
 }
+
+
 
 function createBestLabelChart(nutData) {
     var dataset5C = filterAge(nutData, "5C");
