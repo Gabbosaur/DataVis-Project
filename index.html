@@ -61,11 +61,11 @@
                 </div>
                 <hr>
                 <p class="textLarge">Age</p>
-                <div id="hBarchart"></div>
+                <div id="hHistogram"></div>
                 <!-- BONUS DA FARE: Responsività delle barre che si adattano alla pagina -->
                 <hr>
                 <p class="textLarge">Salary</p>
-                <div id="salaryhBarChart"></div>
+                <div id="salaryhHistogram"></div>
             </div>
             <div class="w3-col l7">
                 <i class="fa fa-chart-bar"></i> Main Chart<br>
@@ -80,7 +80,8 @@
                         <div class="subtitleprod">Product name</div> <span id="name" class="prodname"></span>
                         <!-- CAMBIARE FORMATTAZIONE PER IL NOME -->
                     </div>
-                    <div class="w3-col l9">
+
+                    <div class="w3-col s9">
                         <div class="subtitleprod">Score</div>
                         <div class="subtitleprod">Price (€/Kg €/L)</div>
                         <div class="subtitleprod">Energy</div>
@@ -92,7 +93,7 @@
                         <div class="subtitleprod">Fibers</div>
                         <div class="subtitleprod">Salt</div>
                     </div>
-                    <div class="w3-col l3">
+                    <div class="w3-col s3">
                         <div id="score" class="subtitleprod"></div>
                         <div id="pricekgl" class="subtitleprod"></div>
                         <div id="energy" class="subtitleprod"></div>
@@ -113,10 +114,10 @@
             <div class="w3-col l8 text">
                 <h3>Our project</h3>
                 <p>The experiment's goal is to study the behaviour of the buyers depending on the product's label. Our first phase is to analyze the given dataset and to evaluate which analysis to do. 325 partecipants joined in this experiment where we can
-                    see the distribution by age and salary with the presented barcharts on the left. The buying simulation has been done on the pc, which is divided in two phases:
+                    see the distribution by age and salary with the presented histograms on the left. The buying simulation has been done on the pc, which is divided in two phases:
                     <ul>
-                        <li>Phase 1: the partecipants look at the catalog and select the products to buy <strong>without</strong> any nutritional lable</li>
-                        <li>Phase 2: the partecipants look at the catalog and select the products to buy <strong>with</strong> any nutritional lable</li>
+                        <li>Phase 1: the partecipants look at the catalog and select the products to buy <strong>without</strong> any nutritional label</li>
+                        <li>Phase 2: the partecipants look at the catalog and select the products to buy <strong>with</strong> any nutritional label</li>
                     </ul>
                     The scatterplot represents all the products in the catalog of the supermarcket based on the price by kg/l and their <a href="https://ec.europa.eu/food/sites/food/files/animals/docs/comm_ahac_20180423_pres4.pdf
 					">score FSA</a> (Food Standards Agency). By pointing the relative product, we can see the informations about the product on the right side. We took in consideration four types of labels:
@@ -130,7 +131,7 @@
                         <li>Neutral: this label is like the RI-GDA but without the percentage of daily intake.</li>
                     </ul>
                     To evaluate which is the most effective label, we have done a deep analysis.
-                    <br>The barchart on the right represents substantially the effectiveness of the label, measured with weighted parameter with the following formula:<br>
+                    <br>The histogram on the right represents substantially the effectiveness of the label, measured with weighted parameter with the following formula:<br>
                     <code> Δdarkgreen*2 + Δlightgreen*1 + Δyellow*0 - Δorange*1 - Δred*2</code><br> The parameter "<code>Δdarkgreen</code>" is the result of the difference between the quantity of products' classified darkgreen bought in phase 2 and the
                     quantity of products' classified darkgreen bought in phase 1. we have taken as referance the nutriscore 5c's colors to do a comparison having the same classification of the product. This result is represented by the charts underneath,
                     where it is possible to filter by the type of label, by age and by salary.

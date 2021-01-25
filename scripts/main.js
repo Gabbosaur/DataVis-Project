@@ -565,7 +565,7 @@ function animateValue(id, start, end, duration) {
 
 
 // D3 code
-function createLeftBarChart() {
+function createLeftHistogram() {
     var data = [{
             "name": "60+",
             "value": fasceEta[4],
@@ -605,7 +605,7 @@ function createLeftBarChart() {
     var width = 200 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
-    var svg = d3.select("#hBarchart").append("svg")
+    var svg = d3.select("#hHistogram").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -677,7 +677,7 @@ function createLeftBarChart() {
 
 };
 
-function createLeftSalaryBarChart() {
+function createLeftSalaryHistogram() {
     var data = [{
             "name": "8k+ ",
             "value": fasceStipendio[4],
@@ -712,7 +712,7 @@ function createLeftSalaryBarChart() {
     var width = 200 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
-    var svg = d3.select("#salaryhBarChart").append("svg")
+    var svg = d3.select("#salaryhHistogram").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -850,7 +850,7 @@ function createMidScatterplot() {
             loadInfo(nutProducts, event.target.id);
             lastId = event.target.id;
         })
-        .transition()
+        .transition() //la transizione non ha un valore informativo ma solo grafico
         .ease(d3.easeBounce)
         .delay(function(d, i) {
             return i * 10;
@@ -1320,8 +1320,8 @@ d3.csv("data/dc.csv", function(error, csv) {
     createLabelChart('anni', 'TL', "labelChart2");
     calculateNumberOfProducts(nutData);
     createBestLabelChart(nutData);
-    createLeftBarChart();
-    createLeftSalaryBarChart();
+    createLeftHistogram();
+    createLeftSalaryHistogram();
     createMidScatterplot();
     caddyFilterBought(nutData);
 });
