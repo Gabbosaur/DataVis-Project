@@ -1180,7 +1180,9 @@ function createLabelChart(asseX, label, idLabelChart) {
 
 
 
-    var options = ["really healthy", "healthy", "neutral", "unhealthy", "really unhealthy"];
+    var options = ["really healthy", "healthy", "neutral", "unhealthy", "really unhealthy", "no data available"];
+    var z = d3.scaleOrdinal()
+        .range(["#008000", "#7CFC00", "#FFF500", "#FFA500", "#FF0000", "#000000"]);
 
     // legend
     var legend = svg.selectAll(".legend")
