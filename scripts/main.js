@@ -1029,11 +1029,11 @@ function createLabelChart(asseX, label, idLabelChart) {
         .domain([-y0, y0])
         .range([height, 0]);
 
-    //un gruppo
+    //un gruppo - gruppi histogram
     var x0 = d3.scaleBand()
         .domain(d3.range(n))
         .range([0, width]);
-    //m gruppi
+    //m gruppi - barre del bar chart
     var x1 = d3.scaleBand()
         .domain(d3.range(m))
         .range([0, x0.bandwidth()])
@@ -1058,7 +1058,7 @@ function createLabelChart(asseX, label, idLabelChart) {
 
 
     var axisTop2 = d3
-        .axisBottom()
+        .axisBottom()   // per mettere il nome delle categorie sotto il trattino
         .scale(xScaleLabels)
         .ticks(data.length)
         .tickSize(7)
@@ -1212,8 +1212,8 @@ function createLabelChart(asseX, label, idLabelChart) {
 
 
 function createBestLabelChart(nutData) {
-    var dataset5C = filterAge(nutData, "5C");
-    var datasetTL = filterAge(nutData, "TL");
+    var dataset5C = filterAge(nutData, "5C");   // ignoriamo la divisione per anni, ci accediamo solo per prendere il dato.
+    var datasetTL = filterAge(nutData, "TL");   // Si può usare anche filterSalary e il risultato non cambia
     var datasetRIGDA = filterAge(nutData, "RI-GDA");
     var datasetNeutral = filterAge(nutData, "neutre");
 
@@ -1456,7 +1456,7 @@ d3.csv("data/dc.csv", function(error, csv) {
 
     createLabelChart('anni', '5C', "labelChart1");
     createLabelChart('anni', 'TL', "labelChart2");
-    calculateNumberOfProducts(nutData);
+    calculateNumberOfProducts(nutData); // si può eliminare
     createBestLabelChart(nutData);
     createLeftHistogram();
     createLeftSalaryHistogram();
